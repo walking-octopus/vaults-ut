@@ -119,14 +119,39 @@ Page {
             }
             focus: true
 
-            // TODO: Add a better placeholder item
-            Label {
-                id: emptyLabel
-                anchors.centerIn: parent
+            ColumnLayout {
+                anchors.fill: parent
+                anchors.topMargin: header.height
+                spacing: units.gu(2)
 
-                text: i18n.tr("Welcome to Vaults!\nAdd or import a vault")
                 visible: vaultListView.count === 0 && !vaultList.loading
+
+                Item { Layout.fillHeight: true }
+
+                UbuntuShape {
+                    Layout.alignment: Qt.AlignCenter
+                    Layout.preferredWidth: units.gu(16); Layout.preferredHeight: width
+                    Layout.bottomMargin: units.gu(2)
+
+                    radius: "medium"
+                    color: UbuntuColors.orange
+                }
+
+                Label {
+                    text: i18n.tr("Welcome to Vaults!")
+                    textSize: Label.Large
+                    font.bold: true
+                    Layout.alignment: Qt.AlignCenter
+                }
+
+                Label {
+                    text: i18n.tr("Add or Import a Vault")
+                    Layout.alignment: Qt.AlignCenter
+                }
+
+                Item { Layout.fillHeight: true }
             }
+                
         }
     }
 
@@ -145,7 +170,6 @@ Page {
                 text: nameField.placeholderText
                 visible: nameField.visible
             }
-
             TextField {
                 id: nameField
                 placeholderText: i18n.tr("Name")
@@ -156,7 +180,6 @@ Page {
                 text: passwordField.placeholderText
                 visible: passwordField.visible
             }
-
             TextField {
                 id: passwordField
                 placeholderText: i18n.tr("Password")
@@ -167,7 +190,6 @@ Page {
                 text: passwordRepeatField.placeholderText
                 visible: passwordRepeatField.visible
             }
-
             TextField {
                 id: passwordRepeatField
                 placeholderText: i18n.tr("Confirm Password")
@@ -178,7 +200,6 @@ Page {
                 text: mountDirField.placeholderText
                 visible: mountDirField.visible
             }
-
             TextField {
                 id: mountDirField
                 placeholderText: i18n.tr("Folder location")

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: vaults-ut.walking-octopus\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-27 20:24+0000\n"
+"POT-Creation-Date: 2022-06-27 21:07+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -45,7 +45,7 @@ msgstr ""
 msgid "Your password is required for this action."
 msgstr ""
 
-#: ../qml/Pages/InstallFuse.qml:89 ../qml/Pages/VaultList.qml:162
+#: ../qml/Pages/InstallFuse.qml:89 ../qml/Pages/VaultList.qml:194
 msgid "Password"
 msgstr ""
 
@@ -53,7 +53,7 @@ msgstr ""
 msgid "OK"
 msgstr ""
 
-#: ../qml/Pages/InstallFuse.qml:105 ../qml/Pages/VaultList.qml:192
+#: ../qml/Pages/InstallFuse.qml:105 ../qml/Pages/VaultList.qml:222
 msgid "Cancel"
 msgstr ""
 
@@ -73,29 +73,31 @@ msgstr ""
 msgid "About"
 msgstr ""
 
-#: ../qml/Pages/VaultList.qml:127
-msgid ""
-"Welcome to Vaults!\n"
-"Add or import a vault"
+#: ../qml/Pages/VaultList.qml:150
+msgid "Welcome to Vaults!"
 msgstr ""
 
-#: ../qml/Pages/VaultList.qml:139
-msgid "New Vault"
-msgstr ""
-
-#: ../qml/Pages/VaultList.qml:151
-msgid "Name"
+#: ../qml/Pages/VaultList.qml:157
+msgid "Add or Import a Vault"
 msgstr ""
 
 #: ../qml/Pages/VaultList.qml:173
-msgid "Confirm Password"
+msgid "New Vault"
 msgstr ""
 
 #: ../qml/Pages/VaultList.qml:184
+msgid "Name"
+msgstr ""
+
+#: ../qml/Pages/VaultList.qml:204
+msgid "Confirm Password"
+msgstr ""
+
+#: ../qml/Pages/VaultList.qml:214
 msgid "Folder location"
 msgstr ""
 
-#: ../qml/Pages/VaultList.qml:201
+#: ../qml/Pages/VaultList.qml:231
 msgid "Create"
 msgstr ""
 
