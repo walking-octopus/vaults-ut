@@ -1,0 +1,104 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the vaults-ut.walking-octopus package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: vaults-ut.walking-octopus\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-06-27 20:24+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../qml/Pages/InstallFuse.qml:12
+msgid "Attention!"
+msgstr ""
+
+#: ../qml/Pages/InstallFuse.qml:12
+msgid "Installing..."
+msgstr ""
+
+#: ../qml/Pages/InstallFuse.qml:41
+msgid ""
+"This app requires installing additional system components (Fuse).\n"
+"This may fail on some devices, due to the RootFS size.\n"
+"The download will take around 25 kB.\n"
+"Keep in mind that this message will reappear after a system update."
+msgstr ""
+
+#: ../qml/Pages/InstallFuse.qml:56
+msgid "Continue"
+msgstr ""
+
+#: ../qml/Pages/InstallFuse.qml:81
+msgid "Enter password"
+msgstr ""
+
+#: ../qml/Pages/InstallFuse.qml:82
+msgid "Your password is required for this action."
+msgstr ""
+
+#: ../qml/Pages/InstallFuse.qml:89 ../qml/Pages/VaultList.qml:162
+msgid "Password"
+msgstr ""
+
+#: ../qml/Pages/InstallFuse.qml:95
+msgid "OK"
+msgstr ""
+
+#: ../qml/Pages/InstallFuse.qml:105 ../qml/Pages/VaultList.qml:192
+msgid "Cancel"
+msgstr ""
+
+#: ../qml/Pages/VaultList.qml:18
+msgid "Add"
+msgstr ""
+
+#: ../qml/Pages/VaultList.qml:36
+msgid "Refresh"
+msgstr ""
+
+#: ../qml/Pages/VaultList.qml:42
+msgid "Preferences"
+msgstr ""
+
+#: ../qml/Pages/VaultList.qml:48
+msgid "About"
+msgstr ""
+
+#: ../qml/Pages/VaultList.qml:127
+msgid ""
+"Welcome to Vaults!\n"
+"Add or import a vault"
+msgstr ""
+
+#: ../qml/Pages/VaultList.qml:139
+msgid "New Vault"
+msgstr ""
+
+#: ../qml/Pages/VaultList.qml:151
+msgid "Name"
+msgstr ""
+
+#: ../qml/Pages/VaultList.qml:173
+msgid "Confirm Password"
+msgstr ""
+
+#: ../qml/Pages/VaultList.qml:184
+msgid "Folder location"
+msgstr ""
+
+#: ../qml/Pages/VaultList.qml:201
+msgid "Create"
+msgstr ""
+
+#: vaults-ut.desktop.in.h:1
+msgid "Vaults"
+msgstr ""

@@ -1,0 +1,26 @@
+clickable_minimum_required: 7.1.2
+builder: cmake
+kill: qmlscene
+
+# It's an unconfined app
+skip_review: true
+
+dependencies_target:
+  - fuse
+
+image_setup:
+  run:
+    - wget https://dl.google.com/go/go1.17.7.linux-amd64.tar.gz
+    - rm -rf /usr/local/go
+    - tar -C /usr/local -xzf go*.tar.gz
+    - go version
+
+libraries:
+  gocryptfs:
+    builder: custom
+    build:
+      - ${ROOT}/build-gocryptfs.sh ${ARCH} ${SRC_DIR}
+
+install_data:
+  ${GOCRYPTFS_LIB_INSTALL_DIR}/gocryptfs: .
+  #${GOCRYPTFS_LIB_INSTALL_DIR}/gocryptfs-xray: .
