@@ -20,12 +20,12 @@ Page {
                 onTriggered: {
                     var popup = PopupUtils.open(newVaultPopup)
                     popup.accepted.connect(function(password) {
-                    //     gocryptfs.isLoading = true;
-                    //     gocryptfs.call('gocryptfs.install_fuse', [password], function() {
-                    //         gocryptfs.isLoading = false;
-                    //         pStack.pop()
-                    //         pStack.push(Qt.resolvedUrl("./Pages/VaultList.qml"));
-                    //     });
+                        // gocryptfs.isLoading = true;
+
+                        // FIXME: The Python side uses custom a custom class for configs. It's incompatible with PyOtherSide
+                        // gocryptfs.call('gocryptfs.init', [config, password], function() {
+                        //     gocryptfs.isLoading = false;
+                        // });
                     })
                 }
             }
@@ -61,7 +61,6 @@ Page {
 
                 vaults.forEach((vault) => {
                     vaultList.append(vault);
-                    print(vault.name)
                 });
             });
         }
@@ -163,7 +162,7 @@ Page {
             id: newVaultDialog
             title: i18n.tr("New Vault")
 
-            signal accepted(string name, string password)
+            signal accepted(string name, string mountDir, string dataDir, string password)
             signal rejected()
 
             Label {
@@ -228,7 +227,8 @@ Page {
                         && nameField.text.length != 0
                         && mountDirField.text.length != 0
                     onClicked: {
-                        newVaultDialog.accepted(nameField.text, passwordField.text)
+                        let dataDir = `~/.config/${root.applicationName}/data/${nameField.text}`
+                        newVaultDialog.accepted(nameField.text, mountDirField.text, dataDir, passwordField.text)
                         PopupUtils.close(newVaultDialog)
                     }
                 }
