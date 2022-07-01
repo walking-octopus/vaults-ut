@@ -17,15 +17,25 @@ Page {
             Action {
                 text: i18n.tr("Add")
                 iconName: "add"
+
                 onTriggered: {
                     var popup = PopupUtils.open(newVaultPopup)
-                    popup.accepted.connect(function(password) {
-                        // gocryptfs.isLoading = true;
+                    popup.accepted.connect(function(name, mountDir, dataDir, password) {
+                        print(name, mountDir, dataDir, password);
+                        
+                        gocryptfs.isLoading = true;
 
-                        // FIXME: The Python side uses custom a custom class for configs. It's incompatible with PyOtherSide
-                        // gocryptfs.call('gocryptfs.init', [config, password], function() {
-                        //     gocryptfs.isLoading = false;
-                        // });
+                        let vault_config = {
+                            "name": name,
+                            "mount_directory": mountDir,
+                            "encrypted_data_directory": dataDir,
+                            "is_mounted": false,
+                        }
+
+                        gocryptfs.call('gocryptfs.init', [vault_config, password], function() {
+                            gocryptfs.isLoading = false;
+                            vaultList.refresh();
+                        });
                     })
                 }
             }
@@ -35,7 +45,7 @@ Page {
             Action {
                 text: i18n.tr("Refresh")
                 iconName: "view-refresh"
-                onTriggered: print("Refresh data")
+                onTriggered: vaultList.refresh()
             },
             
             Action {
@@ -55,15 +65,18 @@ Page {
     ListModel {
         id: vaultList
 
-        Component.onCompleted: {
+        function refresh() {
             gocryptfs.call('gocryptfs.get_data', [], function(result) {
                 let vaults = JSON.parse(result);
 
+                vaultList.clear();
                 vaults.forEach((vault) => {
                     vaultList.append(vault);
                 });
             });
         }
+
+        Component.onCompleted: refresh()
     }
 
     ScrollView {

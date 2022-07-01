@@ -91,6 +91,9 @@ def import_vault(vault_config: dict):
     save_config()
 
 def init(vault_config: dict, password: str):
+    vault_config["encrypted_data_directory"] = vault_config["encrypted_data_directory"].replace("~", os.getenv("HOME"))
+    vault_config["mount_directory"] = vault_config["mount_directory"].replace("~", os.getenv("HOME"))
+
     if not os.path.exists(vault_config["encrypted_data_directory"]):
         os.makedirs(vault_config["encrypted_data_directory"])
 
@@ -120,7 +123,7 @@ def mount(vault_config: dict, password: str):
 
     child.communicate(password)
 
-    # FIXME: This ugly hack can lead to many issues!
+    # FIXME: Use UUIDs for this
     [x for x in vault_list if x["name"] == vault_config["name"]][0]["is_mounted"] = True
 
     if child.returncode != 0:
@@ -141,6 +144,8 @@ def unmount(vault_config: dict):
 
 def remove(vault_config: dict):
     unmount(vault_config)
+
+    # FIXME: Do not remove missing directories!
 
     shutil.rmtree(vault_config["encrypted_data_directory"])
     shutil.rmtree(vault_config["mount_directory"])
