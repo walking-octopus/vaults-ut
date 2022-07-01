@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: vaults-ut.walking-octopus\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-07-01 15:06+0000\n"
+"POT-Creation-Date: 2022-07-01 18:16+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -30,7 +30,10 @@ msgid ""
 "This app requires installing additional system components (Fuse).\n"
 "This may fail on some devices, due to the RootFS size.\n"
 "The download will take around 25 kB.\n"
-"Keep in mind that this message will reappear after a system update."
+"Keep in mind that this message will reappear after a system update.\n"
+"\n"
+"Before further usage, please disable suspention for this app in UT Tweaks, "
+"since the overlay FS needs to stay running in the background."
 msgstr ""
 
 #: ../qml/Pages/InstallFuse.qml:56
@@ -45,7 +48,8 @@ msgstr ""
 msgid "Your password is required for this action."
 msgstr ""
 
-#: ../qml/Pages/InstallFuse.qml:89 ../qml/Pages/VaultList.qml:197
+#: ../qml/Pages/InstallFuse.qml:89 ../qml/Pages/VaultList.qml:216
+#: ../qml/Pages/VaultList.qml:272
 msgid "Password"
 msgstr ""
 
@@ -54,6 +58,7 @@ msgid "OK"
 msgstr ""
 
 #: ../qml/Pages/InstallFuse.qml:105 ../qml/Pages/VaultList.qml:225
+#: ../qml/Pages/VaultList.qml:300
 msgid "Cancel"
 msgstr ""
 
@@ -73,31 +78,43 @@ msgstr ""
 msgid "About"
 msgstr ""
 
-#: ../qml/Pages/VaultList.qml:153
+#: ../qml/Pages/VaultList.qml:185
 msgid "Welcome to Vaults!"
 msgstr ""
 
-#: ../qml/Pages/VaultList.qml:160
+#: ../qml/Pages/VaultList.qml:192
 msgid "Add or Import a Vault"
 msgstr ""
 
-#: ../qml/Pages/VaultList.qml:176
-msgid "New Vault"
+#: ../qml/Pages/VaultList.qml:208
+msgid "Unlock the Vault"
 msgstr ""
 
-#: ../qml/Pages/VaultList.qml:187
-msgid "Name"
-msgstr ""
-
-#: ../qml/Pages/VaultList.qml:207
-msgid "Confirm Password"
-msgstr ""
-
-#: ../qml/Pages/VaultList.qml:217
-msgid "Folder location"
+#: ../qml/Pages/VaultList.qml:209
+msgid "Enter the password to unlock the Vault."
 msgstr ""
 
 #: ../qml/Pages/VaultList.qml:234
+msgid "Submit"
+msgstr ""
+
+#: ../qml/Pages/VaultList.qml:251
+msgid "New Vault"
+msgstr ""
+
+#: ../qml/Pages/VaultList.qml:262
+msgid "Name"
+msgstr ""
+
+#: ../qml/Pages/VaultList.qml:282
+msgid "Confirm Password"
+msgstr ""
+
+#: ../qml/Pages/VaultList.qml:292
+msgid "Folder location"
+msgstr ""
+
+#: ../qml/Pages/VaultList.qml:309
 msgid "Create"
 msgstr ""
 

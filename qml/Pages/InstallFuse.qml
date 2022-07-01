@@ -38,7 +38,7 @@ Page {
             id: warnText
             Layout.fillWidth: true
 
-            text: i18n.tr("This app requires installing additional system components (Fuse).\nThis may fail on some devices, due to the RootFS size.\nThe download will take around 25 kB.\nKeep in mind that this message will reappear after a system update.")
+            text: i18n.tr("This app requires installing additional system components (Fuse).\nThis may fail on some devices, due to the RootFS size.\nThe download will take around 25 kB.\nKeep in mind that this message will reappear after a system update.\n\nBefore further usage, please disable suspention for this app in UT Tweaks, since the overlay FS needs to stay running in the background.")
 
             horizontalAlignment: Text.AlignHCenter
             wrapMode: Text.WordWrap

@@ -22,7 +22,7 @@ Page {
                     var popup = PopupUtils.open(newVaultPopup)
                     popup.accepted.connect(function(name, mountDir, dataDir, password) {
                         print(name, mountDir, dataDir, password);
-                        
+
                         gocryptfs.isLoading = true;
 
                         let vault_config = {
@@ -36,24 +36,24 @@ Page {
                             gocryptfs.isLoading = false;
                             vaultList.refresh();
                         });
-                    })
+                    });
                 }
             }
         ]
-        
+
         leadingActionBar.actions: [
             Action {
                 text: i18n.tr("Refresh")
                 iconName: "view-refresh"
                 onTriggered: vaultList.refresh()
             },
-            
+
             Action {
                 text: i18n.tr("Preferences")
                 iconName: "settings"
                 onTriggered: print("App settings")
             },
-            
+
             Action {
                 text: i18n.tr("About")
                 iconName: "info"
@@ -91,6 +91,8 @@ Page {
             delegate: ListItem {
                 id: vaultItemDelegate
 
+                property QtObject modelData: model
+
                 ListItemLayout {
                     anchors.centerIn: parent
                     title.text: name
@@ -100,7 +102,7 @@ Page {
                         width: units.gu(2.5); height: width
                         visible: is_mounted
                         SlotsLayout.position: SlotsLayout.Trailing
-            
+
                         TapHandler {
                             onTapped: print(`Opening ${mount_directory}...`)
                         }
@@ -110,9 +112,39 @@ Page {
                         name: !is_mounted ? "lock" : "close"
                         width: units.gu(2.5); height: width
                         SlotsLayout.position: SlotsLayout.Trailing
-            
+
                         TapHandler {
-                            onTapped: print(`Mounting ${encrypted_data_directory} at ${mount_directory}...`)
+                            onTapped: {
+                                let vault_config = {
+                                    "name": name,
+                                    "mount_directory": mount_directory,
+                                    "encrypted_data_directory": encrypted_data_directory,
+                                    "is_mounted": is_mounted,
+                                }
+
+                                gocryptfs.isLoading = true;
+
+                                if (!is_mounted) {
+                                    print(`Mounting ${encrypted_data_directory} at ${mount_directory}...`);
+
+                                    var popup = PopupUtils.open(unlockVaultPopup);
+                                    popup.accepted.connect(function(password) {
+                                        gocryptfs.call('gocryptfs.mount', [vault_config, password], function() {
+                                            gocryptfs.isLoading = false;
+                                            vaultList.refresh();
+
+                                            // The errors, including entering the wrong password, aren't handled
+                                        });
+                                    });
+                                } else {
+                                    print(`Unmounting ${encrypted_data_directory} at ${mount_directory}...`);
+
+                                    gocryptfs.call('gocryptfs.unmount', [vault_config], function() {
+                                        gocryptfs.isLoading = false;
+                                        vaultList.refresh();
+                                    });
+                                }
+                            }
                         }
                     }
 
@@ -122,7 +154,7 @@ Page {
                         width: units.gu(2.5); height: width
                         visible: !is_mounted
                         SlotsLayout.position: SlotsLayout.Trailing
-            
+
                         TapHandler {
                             onTapped: print("Vault settings")
                         }
@@ -163,14 +195,57 @@ Page {
 
                 Item { Layout.fillHeight: true }
             }
-                
+
         }
     }
 
     Component {
+         id: unlockVaultPopup
+
+         Dialog {
+            id: unlockVaultDialog
+
+            title: i18n.tr("Unlock the Vault") // TODO: Maybe add the vault title here...
+            text: i18n.tr("Enter the password to unlock the Vault.")
+
+            signal accepted(string password)
+            signal rejected()
+
+            TextField {
+                id: passwordField
+                placeholderText: i18n.tr("Password")
+                echoMode: TextInput.Password
+                focus: true
+            }
+
+            RowLayout {
+                Button {
+                    Layout.fillWidth: true
+
+                    text: i18n.tr("Cancel")
+                    color: theme.palette.normal.negative
+
+                    onClicked: PopupUtils.close(unlockVaultDialog)
+                }
+
+                Button {
+                    Layout.fillWidth: true
+
+                    text: i18n.tr("Submit")
+                    color: theme.palette.normal.positive
+
+                    onClicked: {
+                        PopupUtils.close(unlockVaultDialog);
+                        unlockVaultDialog.accepted(passwordField.text);
+                    }
+                }
+            }
+         }
+    }
+
+    Component {
         id: newVaultPopup
-        
-        // TODO: Consider separating this into two dialogs.
+
         Dialog {
             id: newVaultDialog
             title: i18n.tr("New Vault")
@@ -217,7 +292,7 @@ Page {
                 placeholderText: i18n.tr("Folder location")
                 text: `~/Documents/Vaults/${nameField.text}`
             }
-            
+
             RowLayout {
                 Button {
                     Layout.fillWidth: true
