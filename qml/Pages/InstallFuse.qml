@@ -61,10 +61,16 @@ Page {
                 popup.accepted.connect(function(password) {
 
                     gocryptfs.isLoading = true;
+
+                    gocryptfs.call('gocryptfs.disable_sleep', [root.applicationName], function() {
+                        print("Disabled app suspention.");
+                    });
+
                     gocryptfs.call('gocryptfs.install_fuse', [password], function() {
                         gocryptfs.isLoading = false;
-                        pStack.pop()
-                        pStack.push(Qt.resolvedUrl("./Pages/VaultList.qml"));
+                        print("Fuse installed.");
+
+                        pStack.pop(); pStack.push(Qt.resolvedUrl("./VaultList.qml"));
                     });
                 })
             }

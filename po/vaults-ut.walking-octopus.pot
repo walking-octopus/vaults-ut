@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: vaults-ut.walking-octopus\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-07-01 18:16+0000\n"
+"POT-Creation-Date: 2022-07-04 16:10+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -40,81 +40,81 @@ msgstr ""
 msgid "Continue"
 msgstr ""
 
-#: ../qml/Pages/InstallFuse.qml:81
+#: ../qml/Pages/InstallFuse.qml:87
 msgid "Enter password"
 msgstr ""
 
-#: ../qml/Pages/InstallFuse.qml:82
+#: ../qml/Pages/InstallFuse.qml:88
 msgid "Your password is required for this action."
 msgstr ""
 
-#: ../qml/Pages/InstallFuse.qml:89 ../qml/Pages/VaultList.qml:216
-#: ../qml/Pages/VaultList.qml:272
+#: ../qml/Pages/InstallFuse.qml:95 ../qml/Pages/VaultList.qml:215
+#: ../qml/Pages/VaultList.qml:271
 msgid "Password"
 msgstr ""
 
-#: ../qml/Pages/InstallFuse.qml:95
+#: ../qml/Pages/InstallFuse.qml:101
 msgid "OK"
 msgstr ""
 
-#: ../qml/Pages/InstallFuse.qml:105 ../qml/Pages/VaultList.qml:225
-#: ../qml/Pages/VaultList.qml:300
+#: ../qml/Pages/InstallFuse.qml:111 ../qml/Pages/VaultList.qml:224
+#: ../qml/Pages/VaultList.qml:299
 msgid "Cancel"
 msgstr ""
 
-#: ../qml/Pages/VaultList.qml:18
+#: ../qml/Pages/VaultList.qml:33
 msgid "Add"
 msgstr ""
 
-#: ../qml/Pages/VaultList.qml:46
+#: ../qml/Pages/VaultList.qml:54
 msgid "Refresh"
 msgstr ""
 
-#: ../qml/Pages/VaultList.qml:52
+#: ../qml/Pages/VaultList.qml:60
 msgid "Preferences"
 msgstr ""
 
-#: ../qml/Pages/VaultList.qml:58
+#: ../qml/Pages/VaultList.qml:66
 msgid "About"
 msgstr ""
 
-#: ../qml/Pages/VaultList.qml:185
+#: ../qml/Pages/VaultList.qml:184
 msgid "Welcome to Vaults!"
 msgstr ""
 
-#: ../qml/Pages/VaultList.qml:192
+#: ../qml/Pages/VaultList.qml:191
 msgid "Add or Import a Vault"
 msgstr ""
 
-#: ../qml/Pages/VaultList.qml:208
+#: ../qml/Pages/VaultList.qml:207
 msgid "Unlock the Vault"
 msgstr ""
 
-#: ../qml/Pages/VaultList.qml:209
+#: ../qml/Pages/VaultList.qml:208
 msgid "Enter the password to unlock the Vault."
 msgstr ""
 
-#: ../qml/Pages/VaultList.qml:234
+#: ../qml/Pages/VaultList.qml:233
 msgid "Submit"
 msgstr ""
 
-#: ../qml/Pages/VaultList.qml:251
+#: ../qml/Pages/VaultList.qml:250
 msgid "New Vault"
 msgstr ""
 
-#: ../qml/Pages/VaultList.qml:262
+#: ../qml/Pages/VaultList.qml:261
 msgid "Name"
 msgstr ""
 
-#: ../qml/Pages/VaultList.qml:282
+#: ../qml/Pages/VaultList.qml:281
 msgid "Confirm Password"
 msgstr ""
 
-#: ../qml/Pages/VaultList.qml:292
+#: ../qml/Pages/VaultList.qml:291
 msgid "Folder location"
 msgstr ""
 
-#: ../qml/Pages/VaultList.qml:309
+#: ../qml/Pages/VaultList.qml:308
 msgid "Create"
 msgstr ""
 
