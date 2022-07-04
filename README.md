@@ -1,14 +1,7 @@
 # Vaults
+Keep your private files safe. An Ubuntu Touch wrapper around `gocryptfs`.
 
-Keeps your private files safe.
-
-## License
-
-Copyright (C) 2022  walking-octopus
-
-This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License version 3, as published
-by the Free Software Foundation.
-
-This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranties of MERCHANTABILITY, SATISFACTORY QUALITY, or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License along with this program.  If not, see <http://www.gnu.org/licenses/>.
+## Licenses
+ - `walking-octopus/vaults-ut` is licensed under the GNU GPLv3
+ - `rfjakob/gocryptfs` is licensed under the MIT License
+ - The current logo is a modified `passwords-app.png` from `snwh/suru-icon-theme`, licensed under the Creative Commons Attribution-ShareAlike 4.0
