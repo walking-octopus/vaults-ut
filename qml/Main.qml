@@ -20,6 +20,7 @@ import Ubuntu.Components 1.3
 //import QtQuick.Layouts 1.3
 import Qt.labs.settings 1.0
 import io.thp.pyotherside 1.4
+import "./Components"
 
 MainView {
     id: root
@@ -34,6 +35,8 @@ MainView {
         id: pStack
         anchors.fill: parent
     }
+
+    Toast { id: toast }
 
     Connections {
         target: gocryptfs
@@ -70,6 +73,9 @@ MainView {
             });
         }
 
-        onError: print('Python error: ' + traceback)
+        onError: {
+            print('Python error: ' + traceback);
+            toast.show(i18n.tr("Unknown error. View logs for more info."));
+        }
     }
 }

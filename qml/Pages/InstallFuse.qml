@@ -66,10 +66,16 @@ Page {
                         print("Disabled app suspention.");
                     });
 
-                    gocryptfs.call('gocryptfs.install_fuse', [password], function() {
+                    gocryptfs.call('gocryptfs.install_fuse', [password], function(status) {
                         gocryptfs.isLoading = false;
-                        print("Fuse installed.");
 
+                        if (status != 0) {
+                            console.log(`Error installing Fuse: ${status}`);
+                            toast.show(i18n.tr("Error installing Fuse: ") + status);
+                            return;
+                        }
+
+                        print("Fuse installed.");
                         pStack.pop(); pStack.push(Qt.resolvedUrl("./VaultList.qml"));
                     });
                 })

@@ -66,10 +66,9 @@ Page {
         id: vaultList
 
         function refresh() {
-            gocryptfs.call('gocryptfs.get_data', [], function(result) {
-                let vaults = JSON.parse(result);
-
+            gocryptfs.call('gocryptfs.get_data', [], function(vaults) {
                 vaultList.clear();
+
                 vaults.forEach((vault) => {
                     vaultList.append(vault);
                 });
@@ -91,22 +90,24 @@ Page {
             delegate: ListItem {
                 id: vaultItemDelegate
 
-                property QtObject modelData: model
-
                 ListItemLayout {
                     anchors.centerIn: parent
                     title.text: name
 
-                    Icon {
-                        name: "folder-symbolic"
-                        width: units.gu(2.5); height: width
-                        visible: is_mounted
-                        SlotsLayout.position: SlotsLayout.Trailing
+                    // FIXME: For unknown reasons, the built-in File Manager app can't copy to a mounted Vault.
+                    // `mv` command works perfectly well,
+                    // so an in app file picker running it in the background would be enough
 
-                        TapHandler {
-                            onTapped: print(`Opening ${mount_directory}...`)
-                        }
-                    }
+                    // Icon {
+                    //     name: "folder-symbolic"
+                    //     width: units.gu(2.5); height: width
+                    //     visible: is_mounted
+                    //     SlotsLayout.position: SlotsLayout.Trailing
+
+                    //     TapHandler {
+                    //         onTapped: print(`Opening ${mount_directory}...`)
+                    //     }
+                    // }
 
                     Icon {
                         name: !is_mounted ? "lock" : "close"
@@ -115,13 +116,6 @@ Page {
 
                         TapHandler {
                             onTapped: {
-                                let vault_config = {
-                                    "name": name,
-                                    "mount_directory": mount_directory,
-                                    "encrypted_data_directory": encrypted_data_directory,
-                                    "is_mounted": is_mounted,
-                                }
-
                                 gocryptfs.isLoading = true;
 
                                 if (!is_mounted) {
@@ -129,26 +123,45 @@ Page {
 
                                     var popup = PopupUtils.open(unlockVaultPopup);
                                     popup.accepted.connect(function(password) {
-                                        gocryptfs.call('gocryptfs.mount', [vault_config, password], function() {
+                                        gocryptfs.call('gocryptfs.mount', [id, password], function(status) {
                                             gocryptfs.isLoading = false;
                                             vaultList.refresh();
 
-                                            // The errors, including entering the wrong password, aren't handled
+                                            // TODO: Convert status codes to errors
+
+                                            switch (status) {
+                                                case 0: {
+                                                    print("Mounted!");
+                                                    break;
+                                                }
+                                                case 12: {
+                                                    toast.show(i18n.tr("Wrong password!"));
+                                                    break;
+                                                }
+                                                default: {
+                                                    console.log("GoCryptfs mount error: " + status);
+                                                    toast.show(i18n.tr("GoCryptfs mount error: ") + status);
+                                                }
+                                            }
                                         });
                                     });
                                 } else {
                                     print(`Unmounting ${encrypted_data_directory} at ${mount_directory}...`);
 
-                                    gocryptfs.call('gocryptfs.unmount', [vault_config], function() {
+                                    gocryptfs.call('gocryptfs.unmount', [id], function(status) {
                                         gocryptfs.isLoading = false;
                                         vaultList.refresh();
+
+                                        if (status != 0)
+                                            console.log("Fusemount unmount error: " + status);
+                                            toast.show(i18n.tr("Fusemount unmount error: ") + status);
                                     });
                                 }
                             }
                         }
                     }
 
-                    // FIXME: This is hack that uses an extra trailing slot
+                    // FIXME: This hack that uses an extra trailing slot
                     Icon {
                         name: "settings"
                         width: units.gu(2.5); height: width

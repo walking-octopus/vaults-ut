@@ -1,64 +1,34 @@
-from typing import List
 from ast import literal_eval
 from pathlib import Path
 import json
 import os
 import subprocess
 import shutil
+import uuid
 
 HOME = os.path.expanduser("~")
 XDG_CONFIG_HOME = os.environ.get("XDG_CONFIG_HOME", os.path.join(HOME, ".config"))
 APP_CONFIG = Path.joinpath(Path(XDG_CONFIG_HOME), "vaults-ut.walking-octopus")
 
 APP_CONFIG.mkdir(parents=True, exist_ok=True)
-
-# FIXME: PyOtherSide separates exceptions from returns.
-# Any exception is an error that can't be handled.
-# This might need an ugly hack for returning the exceptions
-
-class GenericError(Exception): pass
-class NonEmptyCipherDir(GenericError): pass
-class NonEmptyMountPoint(GenericError): pass
-class WrongPassword(GenericError): pass
-class CannotReadConfig(GenericError): pass
-class CannotWriteConfig(GenericError): pass
-class FsckError(GenericError): pass
-
-def status_to_error(status: int) -> str:
-    GocryptfsExitStatus = {
-        6: NonEmptyCipherDir,
-        7: NonEmptyCipherDir,
-        10: NonEmptyMountPoint,
-        12: WrongPassword,
-        22: WrongPassword,
-        23: CannotReadConfig,
-        24: CannotWriteConfig,
-        26: FsckError,
-    }
-
-    if not status in GocryptfsExitStatus:
-        raise GenericError(status)
-
-    raise GocryptfsExitStatus[status]
-
 configFilePath = Path.joinpath(APP_CONFIG, "knownVaults.json")
 configFilePath.touch(exist_ok=True)
 
-def get_config() -> list:
-    configFile = open(str(configFilePath), "r").read()
-    if configFile == "":
-        return []
+def get_config() -> dict:
+    configFile = open(str(configFilePath), "r", encoding='utf-8').read()
+    if configFile == "": return {}
 
     return json.loads(configFile)
 
-vault_list = get_config()
+vault_dict = get_config()
 
 def save_config():
-    jsonVaults = json.dumps(vault_list)
+    jsonVaults = json.dumps(vault_dict)
+    # TODO: Filter out non-existent vaults
 
     configFile = open(str(configFilePath), "w", encoding='utf-8')
 
-    if jsonVaults != "[]":
+    if jsonVaults != "{}":
         configFile.write(jsonVaults)
     else:
         configFile.write("")
@@ -66,16 +36,23 @@ def save_config():
     configFile.close()
 
 def get_data():
-    return json.dumps(vault_list)
+    vault_list = []
+
+    for vault_id in vault_dict:
+        item = vault_dict[vault_id]
+        item["id"] = vault_id
+        vault_list.append(item)
+
+    return vault_list
 
 def is_available() -> dict:
-    (gocryptfs_status, gocryptfs_version) = subprocess.getstatusoutput('gocryptfs --version')
-    (fust_status, fust_version) = subprocess.getstatusoutput('fusermount -V')
+    (gocryptfs_status, _) = subprocess.getstatusoutput('gocryptfs --version')
+    (fust_status, _) = subprocess.getstatusoutput('fusermount -V')
 
     return { 'gocryptfs': gocryptfs_status == 0, 'fuse': fust_status == 0 }
 
-# TODO: Stop using shell=True
-def install_fuse(sudo_password: str):
+# FIXME: shell=True is unsecure
+def install_fuse(sudo_password: str) -> int:
     cmd1 = subprocess.Popen(['echo', sudo_password], stdout=subprocess.PIPE)
     cmd2 = subprocess.Popen("sudo -S sh -c 'mount -o rw,remount /; apt-get update; apt-get install fuse -y; mount -o ro,remount /'",
         stdin=cmd1.stdout,
@@ -84,10 +61,9 @@ def install_fuse(sudo_password: str):
 
     cmd2.wait()
 
-    if cmd2.returncode != 0:
-        raise GenericError(cmd2.returncode)
+    return cmd2.returncode
 
-def disable_sleep(appID: str):
+def disable_sleep(appID: str) -> int:
     sleep_exempt_apps = literal_eval(str(subprocess.check_output(["gsettings", "get", "com.canonical.qtmir", "lifecycle-exempt-appids"]).strip(), "utf-8"))
 
     if appID not in sleep_exempt_apps:
@@ -95,28 +71,32 @@ def disable_sleep(appID: str):
 
     returncode = subprocess.call(["gsettings", "set", "com.canonical.qtmir", "lifecycle-exempt-appids", str(sleep_exempt_apps)])
 
-    if returncode != 0:
-        raise Exception(returncode)
+    return returncode
 
-def import_vault(vault_config: dict):
-    if not os.path.exists(vault_config["encrypted_data_directory"]):
-        raise CannotReadConfig()
-        # FIXME: Read gocryptfs.conf
+def import_vault(vault: dict) -> int:
+    # FIXME: Error if no `gocryptfs.conf`
+    if not os.path.exists(vault["encrypted_data_directory"]):
+        return 1
 
-    vault_config["encrypted_data_directory"] = vault_config["encrypted_data_directory"].replace("~", os.getenv("HOME"))
-    vault_config["mount_directory"] = vault_config["mount_directory"].replace("~", os.getenv("HOME"))
+    vault["encrypted_data_directory"] = vault["encrypted_data_directory"].replace("~", os.getenv("HOME"))
+    vault["mount_directory"] = vault["mount_directory"].replace("~", os.getenv("HOME"))
     
-    vault_list.append(vault_config)
+    my_uuid = str(uuid.uuid4())
+    vault_dict[my_uuid] = vault
     save_config()
 
-def init(vault_config: dict, password: str):
+    return 0
+
+def init(vault: dict, password: str) -> int:
     # FIXME: That might be a crude way to do it
-    vault_config["encrypted_data_directory"] = vault_config["encrypted_data_directory"].replace("~", os.getenv("HOME"))
-    vault_config["mount_directory"] = vault_config["mount_directory"].replace("~", os.getenv("HOME"))
+    vault["encrypted_data_directory"] = vault["encrypted_data_directory"].replace("~", os.getenv("HOME"))
+    vault["mount_directory"] = vault["mount_directory"].replace("~", os.getenv("HOME"))
 
-    os.makedirs(vault_config["encrypted_data_directory"], exist_ok=True)
+    vault["is_mounted"] = False
 
-    child = subprocess.Popen(["gocryptfs", "-init", vault_config["encrypted_data_directory"]],
+    os.makedirs(vault["encrypted_data_directory"], exist_ok=True)
+
+    child = subprocess.Popen(["gocryptfs", "-init", vault["encrypted_data_directory"]],
         stdin=subprocess.PIPE,
         stdout=subprocess.PIPE,
         stderr=subprocess.PIPE,
@@ -126,16 +106,19 @@ def init(vault_config: dict, password: str):
 
     child.wait()
 
-    vault_list.append(vault_config)
+    my_uuid = str(uuid.uuid4())
+    vault_dict[my_uuid] = vault
+
     save_config()
 
-    if child.returncode != 0:
-        status_to_error(child.returncode)
+    return child.returncode
 
-def mount(vault_config: dict, password: str):
-    os.makedirs(vault_config["mount_directory"], exist_ok=True)
+def mount(uuid: str, password: str) -> int:
+    print(vault_dict)
+    vault = vault_dict[uuid]
+    os.makedirs(vault["mount_directory"], exist_ok=True)
 
-    child = subprocess.Popen(["gocryptfs", vault_config["encrypted_data_directory"], vault_config["mount_directory"]],
+    child = subprocess.Popen(["gocryptfs", vault["encrypted_data_directory"], vault["mount_directory"]],
         stdin=subprocess.PIPE,
         stdout=subprocess.PIPE,
         stderr=subprocess.PIPE,
@@ -143,38 +126,36 @@ def mount(vault_config: dict, password: str):
 
     child.communicate(password)
 
+    if child.returncode == 0:
+        vault_dict[uuid]["is_mounted"] = True
 
-    # FIXME: Use UUIDs for this
+    return child.returncode
 
-    [x for x in vault_list if x["name"] == vault_config["name"]][0]["is_mounted"] = True
+def unmount(uuid: str):
+    # Unhashable type: 'dict'
 
-    if child.returncode != 0:
-        status_to_error(child.returncode)
+    # if not vault_dict[uuid]["is_mounted"]:
+    #     raise Exception("Can't unmount an unmounted directory")
 
-def unmount(vault_config: dict):
-    vault_config = [x for x in vault_list if x["name"] == vault_config["name"]][0]
-
-    if not vault_config["is_mounted"]:
-        return
+    output = subprocess.run(["fusermount", "-u", vault_dict[uuid]["mount_directory"]], stdout=subprocess.DEVNULL)
 
     # FIXME: This assums the vault can never be unmounted unless you've done it.
     # Auto-locking, reboots, and restarts can break it.
-    # Needs to be replaced
-    vault_config["is_mounted"] = False
+    if output.returncode == 0:
+        vault_dict[uuid]["is_mounted"] = False
+    # save_config()
 
-    output = subprocess.run(["fusermount", "-u", vault_config["mount_directory"]], stdout=subprocess.DEVNULL)
+    return output.returncode
 
-    if output.returncode != 0:
-        raise GenericError(output.returncode)
+def remove(uuid: str):
+    vault = vault_dict[uuid]
 
-def remove(vault_config: dict):
-    unmount(vault_config)
+    # FIXME: Unhandled error
+    unmount(uuid)
 
-    # FIXME: Do not remove missing directories!
+    shutil.rmtree(vault["encrypted_data_directory"], ignore_errors=True)
+    shutil.rmtree(vault["mount_directory"], ignore_errors=True)
 
-    shutil.rmtree(vault_config["encrypted_data_directory"])
-    shutil.rmtree(vault_config["mount_directory"])
-
-    vault_list.remove(vault_config)
-
+    # del vault_dict[uuid]
+    vault_dict.pop(uuid, None)
     save_config()

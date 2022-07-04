@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: vaults-ut.walking-octopus\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-07-04 16:10+0000\n"
+"POT-Creation-Date: 2022-07-04 20:11+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,6 +16,10 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
+
+#: ../qml/Main.qml:78
+msgid "Unknown error. View logs for more info."
+msgstr ""
 
 #: ../qml/Pages/InstallFuse.qml:12
 msgid "Attention!"
@@ -40,81 +44,97 @@ msgstr ""
 msgid "Continue"
 msgstr ""
 
-#: ../qml/Pages/InstallFuse.qml:87
+#: ../qml/Pages/InstallFuse.qml:74
+msgid "Error installing Fuse: "
+msgstr ""
+
+#: ../qml/Pages/InstallFuse.qml:93
 msgid "Enter password"
 msgstr ""
 
-#: ../qml/Pages/InstallFuse.qml:88
+#: ../qml/Pages/InstallFuse.qml:94
 msgid "Your password is required for this action."
 msgstr ""
 
-#: ../qml/Pages/InstallFuse.qml:95 ../qml/Pages/VaultList.qml:215
-#: ../qml/Pages/VaultList.qml:271
+#: ../qml/Pages/InstallFuse.qml:101 ../qml/Pages/VaultList.qml:229
+#: ../qml/Pages/VaultList.qml:285
 msgid "Password"
 msgstr ""
 
-#: ../qml/Pages/InstallFuse.qml:101
+#: ../qml/Pages/InstallFuse.qml:107
 msgid "OK"
 msgstr ""
 
-#: ../qml/Pages/InstallFuse.qml:111 ../qml/Pages/VaultList.qml:224
-#: ../qml/Pages/VaultList.qml:299
+#: ../qml/Pages/InstallFuse.qml:117 ../qml/Pages/VaultList.qml:238
+#: ../qml/Pages/VaultList.qml:313
 msgid "Cancel"
 msgstr ""
 
-#: ../qml/Pages/VaultList.qml:33
+#: ../qml/Pages/VaultList.qml:18
 msgid "Add"
 msgstr ""
 
-#: ../qml/Pages/VaultList.qml:54
+#: ../qml/Pages/VaultList.qml:46
 msgid "Refresh"
 msgstr ""
 
-#: ../qml/Pages/VaultList.qml:60
+#: ../qml/Pages/VaultList.qml:52
 msgid "Preferences"
 msgstr ""
 
-#: ../qml/Pages/VaultList.qml:66
+#: ../qml/Pages/VaultList.qml:58
 msgid "About"
 msgstr ""
 
-#: ../qml/Pages/VaultList.qml:184
+#: ../qml/Pages/VaultList.qml:138
+msgid "Wrong password!"
+msgstr ""
+
+#: ../qml/Pages/VaultList.qml:143
+msgid "GoCryptfs mount error: "
+msgstr ""
+
+#: ../qml/Pages/VaultList.qml:157
+msgid "Fusemount unmount error: "
+msgstr ""
+
+#: ../qml/Pages/VaultList.qml:198
 msgid "Welcome to Vaults!"
 msgstr ""
 
-#: ../qml/Pages/VaultList.qml:191
+#: ../qml/Pages/VaultList.qml:205
 msgid "Add or Import a Vault"
 msgstr ""
 
-#: ../qml/Pages/VaultList.qml:207
+#: ../qml/Pages/VaultList.qml:221
 msgid "Unlock the Vault"
 msgstr ""
 
-#: ../qml/Pages/VaultList.qml:208
+#: ../qml/Pages/VaultList.qml:222
 msgid "Enter the password to unlock the Vault."
 msgstr ""
 
-#: ../qml/Pages/VaultList.qml:233
+#: ../qml/Pages/VaultList.qml:247
 msgid "Submit"
 msgstr ""
 
-#: ../qml/Pages/VaultList.qml:250
+#: ../qml/Pages/VaultList.qml:264
 msgid "New Vault"
 msgstr ""
 
-#: ../qml/Pages/VaultList.qml:261
+#: ../qml/Pages/VaultList.qml:275
 msgid "Name"
 msgstr ""
 
-#: ../qml/Pages/VaultList.qml:281
+#: ../qml/Pages/VaultList.qml:295
 msgid "Confirm Password"
 msgstr ""
 
-#: ../qml/Pages/VaultList.qml:291
+#: ../qml/Pages/VaultList.qml:305
 msgid "Folder location"
 msgstr ""
 
-#: ../qml/Pages/VaultList.qml:308
+#: ../qml/Pages/VaultList.qml:322
 msgid "Create"
 msgstr ""
 
