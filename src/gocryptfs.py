@@ -132,8 +132,6 @@ def mount(uuid: str, password: str) -> int:
     return child.returncode
 
 def unmount(uuid: str):
-    # Unhashable type: 'dict'
-
     # if not vault_dict[uuid]["is_mounted"]:
     #     raise Exception("Can't unmount an unmounted directory")
 

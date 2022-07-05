@@ -3,6 +3,7 @@ import Ubuntu.Components 1.3
 import Ubuntu.Components.Popups 1.3
 //import QtQuick.Controls 2.2
 import QtQuick.Layouts 1.3
+import "../Components/passwordEntropy.js" as Entropy
 
 Page {
     anchors.fill: parent
@@ -191,7 +192,6 @@ Page {
                     Layout.bottomMargin: units.gu(2)
 
                     radius: "medium"
-                    // color: UbuntuColors.orange
                     source: Image {
                         source: "../../assets/logo.png"
                     }
@@ -249,7 +249,8 @@ Page {
 
                     text: i18n.tr("Submit")
                     color: theme.palette.normal.positive
-
+                    
+                    enabled: passwordField.text != ""
                     onClicked: {
                         PopupUtils.close(unlockVaultDialog);
                         unlockVaultDialog.accepted(passwordField.text);
@@ -325,11 +326,10 @@ Page {
                     text: i18n.tr("Create")
                     color: theme.palette.normal.positive
 
-                    // TODO: Add entropy checking
                     enabled: passwordField.text == passwordRepeatField.text
-                        && passwordField.text.length > 6
-                        && nameField.text.length != 0
-                        && mountDirField.text.length != 0
+                        && Entropy.passwordEntropy(passwordField.text) > 36
+                        && nameField.text != ""
+                        && mountDirField.text != ""
                     onClicked: {
                         let dataDir = `~/.config/${root.applicationName}/data/${nameField.text}`
                         newVaultDialog.accepted(nameField.text, mountDirField.text, dataDir, passwordField.text)
