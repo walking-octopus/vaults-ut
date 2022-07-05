@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: vaults-ut.walking-octopus\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-07-04 20:11+0000\n"
+"POT-Creation-Date: 2022-07-05 17:27+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -56,8 +56,8 @@ msgstr ""
 msgid "Your password is required for this action."
 msgstr ""
 
-#: ../qml/Pages/InstallFuse.qml:101 ../qml/Pages/VaultList.qml:229
-#: ../qml/Pages/VaultList.qml:285
+#: ../qml/Pages/InstallFuse.qml:101 ../qml/Pages/VaultList.qml:232
+#: ../qml/Pages/VaultList.qml:288
 msgid "Password"
 msgstr ""
 
@@ -65,8 +65,8 @@ msgstr ""
 msgid "OK"
 msgstr ""
 
-#: ../qml/Pages/InstallFuse.qml:117 ../qml/Pages/VaultList.qml:238
-#: ../qml/Pages/VaultList.qml:313
+#: ../qml/Pages/InstallFuse.qml:117 ../qml/Pages/VaultList.qml:241
+#: ../qml/Pages/VaultList.qml:316
 msgid "Cancel"
 msgstr ""
 
@@ -98,43 +98,43 @@ msgstr ""
 msgid "Fusemount unmount error: "
 msgstr ""
 
-#: ../qml/Pages/VaultList.qml:198
+#: ../qml/Pages/VaultList.qml:201
 msgid "Welcome to Vaults!"
 msgstr ""
 
-#: ../qml/Pages/VaultList.qml:205
+#: ../qml/Pages/VaultList.qml:208
 msgid "Add or Import a Vault"
 msgstr ""
 
-#: ../qml/Pages/VaultList.qml:221
+#: ../qml/Pages/VaultList.qml:224
 msgid "Unlock the Vault"
 msgstr ""
 
-#: ../qml/Pages/VaultList.qml:222
+#: ../qml/Pages/VaultList.qml:225
 msgid "Enter the password to unlock the Vault."
 msgstr ""
 
-#: ../qml/Pages/VaultList.qml:247
+#: ../qml/Pages/VaultList.qml:250
 msgid "Submit"
 msgstr ""
 
-#: ../qml/Pages/VaultList.qml:264
+#: ../qml/Pages/VaultList.qml:267
 msgid "New Vault"
 msgstr ""
 
-#: ../qml/Pages/VaultList.qml:275
+#: ../qml/Pages/VaultList.qml:278
 msgid "Name"
 msgstr ""
 
-#: ../qml/Pages/VaultList.qml:295
+#: ../qml/Pages/VaultList.qml:298
 msgid "Confirm Password"
 msgstr ""
 
-#: ../qml/Pages/VaultList.qml:305
+#: ../qml/Pages/VaultList.qml:308
 msgid "Folder location"
 msgstr ""
 
-#: ../qml/Pages/VaultList.qml:322
+#: ../qml/Pages/VaultList.qml:325
 msgid "Create"
 msgstr ""
 

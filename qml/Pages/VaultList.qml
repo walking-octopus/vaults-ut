@@ -191,7 +191,10 @@ Page {
                     Layout.bottomMargin: units.gu(2)
 
                     radius: "medium"
-                    color: UbuntuColors.orange
+                    // color: UbuntuColors.orange
+                    source: Image {
+                        source: "../../assets/logo.png"
+                    }
                 }
 
                 Label {
