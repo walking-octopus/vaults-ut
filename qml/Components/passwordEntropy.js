@@ -1,3 +1,6 @@
+// Borrowed from autonomoussoftware/fast-password-entropy
+// Licensed under the under the MIT license.
+
 const calcEntropy = (charset, length) =>
   Math.round(length * Math.log(charset) / Math.LN2)
 
