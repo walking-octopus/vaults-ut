@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: vaults-ut.walking-octopus\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-07-06 18:13+0000\n"
+"POT-Creation-Date: 2022-07-06 19:55+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -25,7 +25,8 @@ msgstr ""
 msgid "About"
 msgstr ""
 
-#: ../qml/Pages/About.qml:64 vaults-ut.desktop.in.h:1
+#: ../qml/Pages/About.qml:64 ../qml/Pages/VaultList.qml:29
+#: vaults-ut.desktop.in.h:1
 msgid "Vaults"
 msgstr ""
 
@@ -43,6 +44,10 @@ msgstr ""
 
 #: ../qml/Pages/About.qml:113
 msgid "Help us translate the app!"
+msgstr ""
+
+#: ../qml/Pages/About.qml:118
+msgid "Source code"
 msgstr ""
 
 #: ../qml/Pages/InstallFuse.qml:27
@@ -92,6 +97,10 @@ msgstr ""
 #: ../qml/Pages/InstallFuse.qml:132 ../qml/Pages/VaultList.qml:271
 #: ../qml/Pages/VaultList.qml:316 ../qml/Pages/VaultList.qml:392
 msgid "Cancel"
+msgstr ""
+
+#: ../qml/Pages/VaultList.qml:29
+msgid "Loading..."
 msgstr ""
 
 #: ../qml/Pages/VaultList.qml:35

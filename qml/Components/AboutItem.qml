@@ -41,8 +41,7 @@ UbuntuShape {
             top: parent.top
             right: parent.right
             leftMargin: !!headerText ? units.gu(2) : 0
-            topMargin: !!headerText ? units.gu(2) : -(height/3)
-            rightMargin: !!headerText ? units.gu(2) : 0
+            topMargin: !!headerText ? units.gu(2) : units.gu(-0.3)
         }
         height: implicitHeight
         visible: !!headerText
@@ -60,7 +59,6 @@ UbuntuShape {
             top: headerLabel.bottom
             topMargin: units.gu(2)/2
             leftMargin: units.gu(2)
-            rightMargin: units.gu(2)
         }
 
         wrapMode: Text.Wrap
@@ -75,9 +73,8 @@ UbuntuShape {
             right: parent.right
             top: parent.top
             bottom: parent.bottom
-            topMargin: units.gu(2)
+            verticalCenter: parent.verticalCenter
             rightMargin: units.gu(2)
-            bottomMargin: units.gu(2)
         }
 
         width: units.gu(4)

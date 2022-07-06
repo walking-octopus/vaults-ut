@@ -113,6 +113,11 @@ Page {
                 contentText: i18n.tr('Help us translate the app!')
                 url: "https://github.com/walking-octopus/vaults-ut/tree/main/po"
             }
+
+            AboutItem {
+                contentText: i18n.tr('Source code')
+                url: "https://github.com/walking-octopus/vaults-ut/"
+            }
         }
     }
 }

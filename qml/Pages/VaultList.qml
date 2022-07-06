@@ -26,7 +26,7 @@ Page {
 
     header: PageHeader {
         id: header
-        title: "Vaults"
+        title: !gocryptfs.isLoading ? i18n.tr("Vaults") : i18n.tr("Loading...")
 
         flickable: scrollView.flickableItem
 
@@ -210,7 +210,7 @@ Page {
                 anchors.topMargin: header.height
                 spacing: units.gu(2)
 
-                visible: vaultListView.count === 0 && !vaultList.loading
+                visible: vaultListView.count === 0 && !gocryptfs.isLoading
 
                 Item { Layout.fillHeight: true }
 
