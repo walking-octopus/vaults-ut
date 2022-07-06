@@ -30,7 +30,7 @@ UbuntuShape {
     }
 
     radius: "small"
-    // color: theme.palette.normal.raised
+    color: theme.name == "Ubuntu.Components.Themes.Ambiance" ? "#F7F7F7" : "#3B3B3B"
     height: (!!headerText ? headerLabel.contentHeight : 0) + contentLabel.contentHeight + (units.gu(2) * 2.5)
 
     Label {
