@@ -56,7 +56,7 @@ Page {
             Action {
                 text: i18n.tr("About")
                 iconName: "info"
-                onTriggered: print("PLACEHOLDER: About page")
+                onTriggered: pStack.push(Qt.resolvedUrl("./About.qml"));
             }
         ]
     }
@@ -205,7 +205,7 @@ Page {
 
                     radius: "medium"
                     source: Image {
-                        source: "../../assets/logo.png"
+                        source: Qt.resolvedUrl("../../assets/logo.png")
                     }
                 }
 
