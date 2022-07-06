@@ -3,17 +3,19 @@ import QtQuick.Layouts 1.1
 import Ubuntu.Components 1.3
 
 UbuntuShape {
-
     property var defaultTime: 3500
     property bool stateVisible: false
 
     id: toast
-    anchors.top: parent.top
-    anchors.margins: units.gu(2)
-    anchors.topMargin: units.gu(8)
-    anchors.horizontalCenter: parent.horizontalCenter
+    anchors {
+        top: parent.top
+        margins: units.gu(2)
+        topMargin: units.gu(8)
+        horizontalCenter: parent.horizontalCenter
+    }
     width: label.width + units.gu(2)
     height: label.height + units.gu(2)
+
     backgroundColor: (Theme.name == "Ubuntu.Components.Themes.Ambiance") ? "white" : "#202020"
     aspect: UbuntuShape.DropShadow
     radius: "large"
@@ -22,13 +24,12 @@ UbuntuShape {
 
     states: [
         State { when: stateVisible;
-            PropertyChanges {   target: toast; opacity: 1.0; anchors.topMargin: units.gu(8);    }
+            PropertyChanges {   target: toast; opacity: 1.0; anchors.topMargin: units.gu(8);   }
         },
         State { when: !stateVisible;
-            PropertyChanges {   target: toast; opacity: 0.0; anchors.topMargin: 0;    }
+            PropertyChanges {   target: toast; opacity: 0.0; anchors.topMargin: 0;   }
         }
     ]
-
 
     transitions: Transition {
         SpringAnimation {
@@ -39,7 +40,9 @@ UbuntuShape {
         NumberAnimation { property: "opacity"; duration: 250}
     }
 
-    function show(str,time ) {
+    function show(str, time) {
+        // print(str)
+
         if ( !time ) time = defaultTime
 
         var urlRegex = /(https?:\/\/[^\s]+)/g

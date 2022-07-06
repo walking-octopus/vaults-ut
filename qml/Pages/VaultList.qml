@@ -20,10 +20,8 @@ Page {
                 iconName: "add"
 
                 onTriggered: {
-                    var popup = PopupUtils.open(newVaultPopup)
+                    var popup = PopupUtils.open(newVaultPopup);
                     popup.accepted.connect(function(name, mountDir, dataDir, password) {
-                        print(name, mountDir, dataDir, password);
-
                         gocryptfs.isLoading = true;
 
                         let vault_config = {
@@ -52,13 +50,13 @@ Page {
             Action {
                 text: i18n.tr("Preferences")
                 iconName: "settings"
-                onTriggered: print("App settings")
+                onTriggered: print("PLACEHOLDER: App settings")
             },
 
             Action {
                 text: i18n.tr("About")
                 iconName: "info"
-                onTriggered: print("About page")
+                onTriggered: print("PLACEHOLDER: About page")
             }
         ]
     }
@@ -99,16 +97,29 @@ Page {
                     // `mv` command works perfectly well,
                     // so an in app file picker running it in the background would be enough
 
-                    // Icon {
-                    //     name: "folder-symbolic"
-                    //     width: units.gu(2.5); height: width
-                    //     visible: is_mounted
-                    //     SlotsLayout.position: SlotsLayout.Trailing
+                    Icon {
+                        name: "document-open"
+                        width: units.gu(2.5); height: width
+                        visible: is_mounted
+                        SlotsLayout.position: SlotsLayout.Trailing
 
-                    //     TapHandler {
-                    //         onTapped: print(`Opening ${mount_directory}...`)
-                    //     }
-                    // }
+                        TapHandler {
+                            onTapped: {
+                                var popup = PopupUtils.open(moveToVaultPopup);
+
+                                popup.accepted.connect(function(location) {            
+                                    gocryptfs.isLoading = true;
+            
+                                    gocryptfs.call('gocryptfs.mv', [location, mount_directory], function(status) {
+                                        gocryptfs.isLoading = false;
+
+                                        if (status != 0)
+                                            toast.show(i18n.tr("Error moving the files into the vault"))
+                                    });
+                                });
+                            }
+                        }
+                    }
 
                     Icon {
                         name: !is_mounted ? "lock" : "close"
@@ -140,7 +151,7 @@ Page {
                                                     break;
                                                 }
                                                 default: {
-                                                    console.log("GoCryptfs mount error: " + status);
+                                                    print("GoCryptfs mount error: " + status);
                                                     toast.show(i18n.tr("GoCryptfs mount error: ") + status);
                                                 }
                                             }
@@ -153,9 +164,10 @@ Page {
                                         gocryptfs.isLoading = false;
                                         vaultList.refresh();
 
-                                        if (status != 0)
-                                            console.log("Fusemount unmount error: " + status);
+                                        if (status != 0) {
+                                            print("Fusemount unmount error: " + status);
                                             toast.show(i18n.tr("Fusemount unmount error: ") + status);
+                                        }
                                     });
                                 }
                             }
@@ -211,9 +223,56 @@ Page {
 
                 Item { Layout.fillHeight: true }
             }
-
         }
     }
+
+    Component {
+        id: moveToVaultPopup
+
+        Dialog {
+           id: moveToVaultDialog
+
+           title: i18n.tr("Move into the vault")
+           text: i18n.tr("What directory or file would you like to move into the vault?")
+
+           signal accepted(string location)
+           signal rejected()
+
+           TextField {
+               id: locationField
+               placeholderText: "~/Documents/Important/"
+               focus: true
+               inputMethodHints: Qt.ImhNoPredictiveText
+               // Without disableing the predictive keyboard,
+               // it will deley entering the text,
+               // causing arbitrary paths to get moved
+           }
+
+           RowLayout {
+               Button {
+                   Layout.fillWidth: true
+
+                   text: i18n.tr("Cancel")
+                   color: theme.palette.normal.negative
+
+                   onClicked: PopupUtils.close(moveToVaultDialog)
+               }
+
+               Button {
+                   Layout.fillWidth: true
+
+                   text: i18n.tr("Move")
+                   color: theme.palette.normal.positive
+                   
+                   enabled: locationField.text != ""
+                   onClicked: {
+                       PopupUtils.close(moveToVaultDialog);
+                       moveToVaultDialog.accepted(locationField.text);
+                   }
+               }
+           }
+        }
+   }
 
     Component {
          id: unlockVaultPopup

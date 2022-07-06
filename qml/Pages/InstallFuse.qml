@@ -70,7 +70,7 @@ Page {
                         gocryptfs.isLoading = false;
 
                         if (status != 0) {
-                            console.log(`Error installing Fuse: ${status}`);
+                            print(`Error installing Fuse: ${status}`);
                             toast.show(i18n.tr("Error installing Fuse: ") + status);
                             return;
                         }

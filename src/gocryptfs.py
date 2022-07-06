@@ -73,6 +73,11 @@ def disable_sleep(appID: str) -> int:
 
     return returncode
 
+def mv(source: str, dest: str) -> int:
+    source = source.replace("~", os.getenv("HOME")) # What if HOME is not set?
+    child = subprocess.run(["mv", source, dest]) # Must be recursive!
+    return child.returncode
+
 def import_vault(vault: dict) -> int:
     # FIXME: Error if no `gocryptfs.conf`
     if not os.path.exists(vault["encrypted_data_directory"]):
@@ -114,7 +119,6 @@ def init(vault: dict, password: str) -> int:
     return child.returncode
 
 def mount(uuid: str, password: str) -> int:
-    print(vault_dict)
     vault = vault_dict[uuid]
     os.makedirs(vault["mount_directory"], exist_ok=True)
 
