@@ -41,7 +41,7 @@ UbuntuShape {
             top: parent.top
             right: parent.right
             leftMargin: !!headerText ? units.gu(2) : 0
-            topMargin: !!headerText ? units.gu(2) : units.gu(-0.3)
+            topMargin: !!headerText ? units.gu(2) : units.gu(-0.3) // This might break
         }
         height: implicitHeight
         visible: !!headerText
