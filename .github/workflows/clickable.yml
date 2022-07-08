@@ -36,11 +36,28 @@ jobs:
           sudo systemctl unmask docker.service
           sudo systemctl start docker.service
 
+      - name: Build the gocryptfs
+        env:
+          ARCH: ${{ matrix.arch }}
+        run: ~/.local/bin/clickable build --libs --arch ${ARCH}
+
+      - uses: actions/upload-artifact@v2
+        with:
+          name: "gocryptfs-${{ matrix.arch }}"
+          path: build/*/gocryptfs/install/*
+          if-no-files-found: error
+
+      - name: Build the app
+        env:
+          BUILD_TYPE: ${{ (matrix.build == 'Debug') && '--debug' || '' }}
+          ARCH: ${{ matrix.arch }}
+        run: ~/.local/bin/clickable build --arch ${ARCH}
+
       - uses: actions/upload-artifact@v2
         with:
           name: "vaults-ut-${{ matrix.arch }}-${{ matrix.build_type }}-click"
           path: build/*/app/*.click
-          if-no-files-found: ignore
+          if-no-files-found: error
 
       - name: Publish to Open Store
         if: ${{ github.ref == 'refs/heads/master' && matrix.build_type == 'Release' }}
