@@ -1,0 +1,49 @@
+name: Ubuntu Touch
+
+#on:
+  #push:
+    #branches:
+      #- master
+    #tags:
+      #- '*'
+  #pull_request: {}
+
+jobs:
+  clickable:
+    strategy:
+      fail-fast: false
+      matrix:
+        build_type: [Debug, Release]
+        arch: [amd64, arm64, armhf]
+
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Install clickable
+        run: |
+          # For whatever reason, I have to manually install runc before
+          # docker.io or containerd, else it fails because of broken dependency
+          # Using apt-get because apt complains it shouldn't be used in scripts
+          sudo apt-get update
+          sudo apt-get install -y runc
+          sudo apt-get install -y docker.io adb git python3 python3-pip
+          pip3 install --user git+https://gitlab.com/clickable/clickable.git
+
+          # Clickable requires a reboot. This is a sneaky way to bypass that :^)
+          sudo systemctl unmask docker.service
+          sudo systemctl start docker.service
+
+      - uses: actions/upload-artifact@v2
+        with:
+          name: "clickable-${{ matrix.arch }}-${{ matrix.build_type }}-click"
+          path: build.clickable/*.click
+          if-no-files-found: ignore
+
+      - name: Publish to Open Store
+        if: ${{ github.ref == 'refs/heads/master' && matrix.build_type == 'Release' }}
+        env:
+          ARCH: ${{ matrix.arch }}
+          OPENSTORE_KEY: ${{ secrets.OPENSTORE_KEY }}
+        run: |
+          ~/.local/bin/clickable publish --apikey ${OPENSTORE_KEY} --arch ${ARCH}
