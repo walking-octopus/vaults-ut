@@ -1,14 +1,18 @@
 name: Clickable build
 
 on:
-  workflow_dispatch
-    #inputs:
-      #build_type: [Debug, Release]
-        #description: 'Log level'
-        #required: true
-        #default: 'warning'
-      #tags:
-        #description: 'Test scenario tags'
+  pull_request:
+    types:
+      - opened
+  workflow_dispatch:
+    # inputs:
+    #   release:
+    #     type: boolean
+    #     description: Release to OpenStore
+    #     required: true
+    #     default: 'false'
+
+# UT requires unconfined apps to be compiled by moderators, so OpenStore publishing was commented out. 
 
 jobs:
   clickable:
@@ -59,10 +63,10 @@ jobs:
           path: build/*/app/*.click
           if-no-files-found: error
 
-      - name: Publish to Open Store
-        if: ${{ github.ref == 'refs/heads/master' && matrix.build_type == 'Release' }}
-        env:
-          ARCH: ${{ matrix.arch }}
-          OPENSTORE_KEY: ${{ secrets.OPENSTORE_KEY }}
-        run: |
-          ~/.local/bin/clickable publish --apikey ${OPENSTORE_KEY} --arch ${ARCH}
+      # - name: Publish to Open Store
+      #   if: ${{ github.ref == 'refs/heads/master' && matrix.build_type == 'Release' }}
+      #   env:
+      #     ARCH: ${{ matrix.arch }}
+      #     OPENSTORE_KEY: ${{ secrets.OPENSTORE_KEY }}
+      #   run: |
+      #     ~/.local/bin/clickable publish --apikey ${OPENSTORE_KEY} --arch ${ARCH}
