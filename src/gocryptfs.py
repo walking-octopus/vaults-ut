@@ -115,12 +115,14 @@ def init(vault: dict, password: str) -> int:
     # That might be a crude way to expand paths
     vault["encrypted_data_directory"] = vault["encrypted_data_directory"].replace("~", os.getenv("HOME"))
     vault["mount_directory"] = vault["mount_directory"].replace("~", os.getenv("HOME"))
-
     vault["is_mounted"] = False
 
     os.makedirs(vault["encrypted_data_directory"], exist_ok=True)
 
-    child = subprocess.Popen(["gocryptfs", "-init", vault["encrypted_data_directory"]],
+    # Because no benchmark data was provided, I assume most phones do not have AES acceleration,
+    # so, I'll use 'xchacha' for better performance.
+
+    child = subprocess.Popen(["gocryptfs", "-xchacha", "-init", vault["encrypted_data_directory"]],
         stdin=subprocess.PIPE,
         stdout=subprocess.PIPE,
         stderr=subprocess.PIPE,
@@ -159,7 +161,6 @@ def unmount(uuid: str):
 
     if output.returncode == 0:
         vault_dict[uuid]["is_mounted"] = is_mounted(uuid)
-        # save_config()
 
     return output.returncode
 
