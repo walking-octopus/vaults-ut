@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: vaults-ut.walking-octopus\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-07-09 14:48+0000\n"
+"POT-Creation-Date: 2022-07-09 16:53+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -124,7 +124,7 @@ msgid "Wrong password!"
 msgstr ""
 
 #: ../qml/Pages/VaultList.qml:170
-msgid "GoCryptfs mount error: "
+msgid "GoCryptFS mount error: "
 msgstr ""
 
 #: ../qml/Pages/VaultList.qml:188
@@ -146,7 +146,8 @@ msgstr ""
 #: ../qml/Pages/VaultList.qml:255
 msgid ""
 "Type a path to a file/folder to be moved into the vault.\n"
-"If unsure, copy it in the File Manager and paste here."
+"\n"
+"You can also cut it in the File Manager, paste here, and clear the clipboard."
 msgstr ""
 
 #: ../qml/Pages/VaultList.qml:280

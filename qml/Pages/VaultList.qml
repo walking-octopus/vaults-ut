@@ -166,8 +166,8 @@ Page {
                                                     break;
                                                 }
                                                 default: {
-                                                    print("GoCryptfs mount error: " + status);
-                                                    toast.show(i18n.tr("GoCryptfs mount error: ") + status);
+                                                    print("GoCryptFS mount error: " + status);
+                                                    toast.show(i18n.tr("GoCryptFS mount error: ") + status);
                                                     // FIXME: Undefined errors
                                                 }
                                             }
@@ -252,7 +252,7 @@ Page {
            id: moveToVaultDialog
 
            title: i18n.tr("Move into the vault")
-           text: i18n.tr("Type a path to a file/folder to be moved into the vault.\nIf unsure, copy it in the File Manager and paste here.")
+           text: i18n.tr("Type a path to a file/folder to be moved into the vault.\n\nYou can also cut it in the File Manager, paste here, and clear the clipboard.")
 
            signal accepted(string location)
            signal rejected()
