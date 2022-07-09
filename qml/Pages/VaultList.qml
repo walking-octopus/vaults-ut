@@ -81,12 +81,16 @@ Page {
         id: vaultList
 
         function refresh() {
+            gocryptfs.isLoading = true;
+
             gocryptfs.call('gocryptfs.get_data', [], function(vaults) {
                 vaultList.clear();
 
                 vaults.forEach((vault) => {
                     vaultList.append(vault);
                 });
+    
+                gocryptfs.isLoading = false;
             });
         }
 
@@ -140,15 +144,14 @@ Page {
 
                         TapHandler {
                             onTapped: {
-                                gocryptfs.isLoading = true;
-
                                 if (!is_mounted) {
                                     print(`Mounting ${encrypted_data_directory} at ${mount_directory}...`);
 
                                     var popup = PopupUtils.open(unlockVaultPopup);
                                     popup.accepted.connect(function(password) {
+                                        gocryptfs.isLoading = true;
+
                                         gocryptfs.call('gocryptfs.mount', [id, password], function(status) {
-                                            gocryptfs.isLoading = false;
                                             vaultList.refresh();
 
                                             // TODO: Convert status codes to errors
@@ -164,13 +167,18 @@ Page {
                                                 }
                                                 default: {
                                                     print("GoCryptfs mount error: " + status);
-                                                    toast.show(i18n.tr("GoCryptfs mount error: ") + status);                                                }
+                                                    toast.show(i18n.tr("GoCryptfs mount error: ") + status);
+                                                    // FIXME: Undefined errors
+                                                }
                                             }
+
+                                            gocryptfs.isLoading = true;
                                         });
                                     });
                                 } else {
                                     print(`Unmounting ${encrypted_data_directory} at ${mount_directory}...`);
 
+                                    gocryptfs.isLoading = true;
                                     gocryptfs.call('gocryptfs.unmount', [id], function(status) {
                                         gocryptfs.isLoading = false;
                                         vaultList.refresh();
