@@ -1,4 +1,5 @@
 from ast import literal_eval
+from operator import sub
 from pathlib import Path
 import json
 import os
@@ -37,6 +38,9 @@ def save_config():
 
 def get_data():
     vault_list = []
+
+    for vault_id in vault_dict:
+        vault_dict[vault_id]["is_mounted"] = is_mounted(vault_id)
 
     for vault_id in vault_dict:
         item = vault_dict[vault_id]
@@ -80,6 +84,19 @@ def mv(source: str, dest: str) -> int:
     child = subprocess.run(["mv", source, dest])
     return child.returncode
 
+def is_mounted(uuid: str) -> bool:
+    mount_dir = vault_dict[uuid]["mount_directory"]
+    (status, output) = subprocess.getstatusoutput("mountpoint " + mount_dir)
+
+    # If the user closed an app without unmounting the vault,
+    # it will result in `Transport endpoint is not connected` error.
+    # I must check for it and remount it if needed.
+
+    if "Transport endpoint is not connected" in output:
+        unmount(uuid)
+
+    return status == 0
+
 def import_vault(vault: dict) -> int:
     # FIXME: Throw an exception if `gocryptfs.conf` isn't found
     if not os.path.exists(vault["encrypted_data_directory"]):
@@ -122,7 +139,6 @@ def init(vault: dict, password: str) -> int:
 
 def mount(uuid: str, password: str) -> int:
     vault = vault_dict[uuid]
-    unmount(uuid)
     os.makedirs(vault["mount_directory"], exist_ok=True)
 
     child = subprocess.Popen(["gocryptfs", vault["encrypted_data_directory"], vault["mount_directory"]],
@@ -134,20 +150,15 @@ def mount(uuid: str, password: str) -> int:
     child.communicate(password)
 
     if child.returncode == 0:
-        vault_dict[uuid]["is_mounted"] = True
+        vault_dict[uuid]["is_mounted"] = is_mounted(uuid)
 
     return child.returncode
 
 def unmount(uuid: str):
-    # if not vault_dict[uuid]["is_mounted"]:
-    #     raise Exception("Can't unmount an unmounted directory")
-
     output = subprocess.run(["fusermount", "-u", vault_dict[uuid]["mount_directory"]], stdout=subprocess.DEVNULL)
 
-    # FIXME: This assumes the vault can never be unmounted unless you've done it.
-    # Auto-locking, reboots, and restarts can break it.
     if output.returncode == 0:
-        vault_dict[uuid]["is_mounted"] = False
+        vault_dict[uuid]["is_mounted"] = is_mounted(uuid)
         # save_config()
 
     return output.returncode
