@@ -109,10 +109,6 @@ Page {
                     anchors.centerIn: parent
                     title.text: name
 
-                    // FIXME: For unknown reasons, the built-in File Manager app can't copy to a mounted Vault.
-                    // `mv` command works perfectly well,
-                    // so an in app file picker running it in the background would be enough
-
                     Icon {
                         name: "document-open"
                         width: units.gu(2.5); height: width
@@ -189,7 +185,7 @@ Page {
                         }
                     }
 
-                    // FIXME: This hack that uses an extra trailing slot
+                    // FIXME: This uses an extra trailing slot
                     Icon {
                         name: "settings"
                         width: units.gu(2.5); height: width
@@ -248,7 +244,7 @@ Page {
            id: moveToVaultDialog
 
            title: i18n.tr("Move into the vault")
-           text: i18n.tr("Type a path to a file/folder to be moved into the vault. If unsure, copy it in the File Manager and paste here.")
+           text: i18n.tr("Type a path to a file/folder to be moved into the vault.\nIf unsure, copy it in the File Manager and paste here.")
 
            signal accepted(string location)
            signal rejected()
@@ -258,9 +254,6 @@ Page {
                placeholderText: "~/Documents/Important/"
                focus: true
                inputMethodHints: Qt.ImhNoPredictiveText
-               // Without disableing the predictive keyboard,
-               // it will deley entering the text,
-               // causing arbitrary paths to get moved
            }
 
            RowLayout {

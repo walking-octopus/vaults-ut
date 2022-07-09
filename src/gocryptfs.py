@@ -24,7 +24,7 @@ vault_dict = get_config()
 
 def save_config():
     jsonVaults = json.dumps(vault_dict)
-    # TODO: Filter out non-existent vaults
+    # TODO: Filter out the non-existent vaults
 
     configFile = open(str(configFilePath), "w", encoding='utf-8')
 
@@ -77,11 +77,11 @@ def mv(source: str, dest: str) -> int:
     source = source.replace("~", os.getenv("HOME")) # What if HOME is not set?
     source = source.replace("file://", "")
 
-    child = subprocess.run(["mv", source, dest]) # Must be recursive!
+    child = subprocess.run(["mv", source, dest])
     return child.returncode
 
 def import_vault(vault: dict) -> int:
-    # FIXME: Error if no `gocryptfs.conf`
+    # FIXME: Throw an exception if `gocryptfs.conf` isn't found
     if not os.path.exists(vault["encrypted_data_directory"]):
         return 1
 
@@ -95,7 +95,7 @@ def import_vault(vault: dict) -> int:
     return 0
 
 def init(vault: dict, password: str) -> int:
-    # FIXME: That might be a crude way to do it
+    # That might be a crude way to expand paths
     vault["encrypted_data_directory"] = vault["encrypted_data_directory"].replace("~", os.getenv("HOME"))
     vault["mount_directory"] = vault["mount_directory"].replace("~", os.getenv("HOME"))
 
@@ -144,11 +144,11 @@ def unmount(uuid: str):
 
     output = subprocess.run(["fusermount", "-u", vault_dict[uuid]["mount_directory"]], stdout=subprocess.DEVNULL)
 
-    # FIXME: This assums the vault can never be unmounted unless you've done it.
+    # FIXME: This assumes the vault can never be unmounted unless you've done it.
     # Auto-locking, reboots, and restarts can break it.
     if output.returncode == 0:
         vault_dict[uuid]["is_mounted"] = False
-    # save_config()
+        # save_config()
 
     return output.returncode
 
@@ -161,6 +161,5 @@ def remove(uuid: str):
     shutil.rmtree(vault["encrypted_data_directory"], ignore_errors=True)
     shutil.rmtree(vault["mount_directory"], ignore_errors=True)
 
-    # del vault_dict[uuid]
     vault_dict.pop(uuid, None)
     save_config()

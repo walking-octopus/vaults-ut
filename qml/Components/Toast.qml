@@ -75,7 +75,7 @@ UbuntuShape {
 
     Label {
         id: label
-        //elide: Text.ElideMiddle
+        // elide: Text.ElideMiddle
         anchors.centerIn: parent
         text: ""
         wrapMode: Text.Wrap

@@ -1,4 +1,4 @@
-name: Ubuntu Touch
+name: Clickable build
 
 on:
   workflow_dispatch

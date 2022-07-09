@@ -27,7 +27,7 @@ Page {
         title: gocryptfs.isLoading ? i18n.tr('Installing...') : i18n.tr('Attention!')
     }
 
-    // FIXME: Some of elements in this layout rely on hack calculations that work on certain window sizes
+    // FIXME: This layout relies on some hacky calculations that don't work on certain window sizes
     ColumnLayout {
         anchors.fill: parent
         anchors.topMargin: header.height
