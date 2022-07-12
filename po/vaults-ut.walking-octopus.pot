@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: vaults-ut.walking-octopus\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-07-09 16:53+0000\n"
+"POT-Creation-Date: 2022-07-12 14:27+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,11 +17,39 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../qml/Main.qml:78
-msgid "Unknown error. View logs for more info."
+#: ../qml/Components/Backend.qml:34
+msgid "Unknown error. View the logs for more info."
 msgstr ""
 
-#: ../qml/Pages/About.qml:25 ../qml/Pages/VaultList.qml:73
+#: ../qml/Components/Backend.qml:72
+#, javascript-format
+msgid "GoCryptFS error: %s"
+msgstr ""
+
+#: ../qml/Components/Backend.qml:87
+msgid "Vault opened."
+msgstr ""
+
+#: ../qml/Components/Backend.qml:91
+msgid "Wrong password!"
+msgstr ""
+
+#: ../qml/Components/Backend.qml:96
+#, javascript-format
+msgid "GoCryptFS mount error: %s"
+msgstr ""
+
+#: ../qml/Components/Backend.qml:114
+#, javascript-format
+msgid "FuseMount unmount error: %s"
+msgstr ""
+
+#: ../qml/Components/Backend.qml:127
+#, javascript-format
+msgid "Error %s moving the files into the vault"
+msgstr ""
+
+#: ../qml/Pages/About.qml:25 ../qml/Pages/VaultList.qml:68
 msgid "About"
 msgstr ""
 
@@ -85,8 +113,8 @@ msgstr ""
 msgid "Your password is required for this action."
 msgstr ""
 
-#: ../qml/Pages/InstallFuse.qml:116 ../qml/Pages/VaultList.qml:307
-#: ../qml/Pages/VaultList.qml:364
+#: ../qml/Pages/InstallFuse.qml:116 ../qml/Pages/VaultList.qml:244
+#: ../qml/Pages/VaultList.qml:301
 msgid "Password"
 msgstr ""
 
@@ -94,8 +122,8 @@ msgstr ""
 msgid "OK"
 msgstr ""
 
-#: ../qml/Pages/InstallFuse.qml:132 ../qml/Pages/VaultList.qml:271
-#: ../qml/Pages/VaultList.qml:316 ../qml/Pages/VaultList.qml:392
+#: ../qml/Pages/InstallFuse.qml:132 ../qml/Pages/VaultList.qml:208
+#: ../qml/Pages/VaultList.qml:253 ../qml/Pages/VaultList.qml:329
 msgid "Cancel"
 msgstr ""
 
@@ -107,81 +135,65 @@ msgstr ""
 msgid "Add"
 msgstr ""
 
-#: ../qml/Pages/VaultList.qml:61
+#: ../qml/Pages/VaultList.qml:56
 msgid "Refresh"
 msgstr ""
 
-#: ../qml/Pages/VaultList.qml:67
+#: ../qml/Pages/VaultList.qml:62
 msgid "Preferences"
 msgstr ""
 
-#: ../qml/Pages/VaultList.qml:133
-msgid "Error moving the files into the vault"
-msgstr ""
-
-#: ../qml/Pages/VaultList.qml:165
-msgid "Wrong password!"
-msgstr ""
-
-#: ../qml/Pages/VaultList.qml:170
-msgid "GoCryptFS mount error: "
-msgstr ""
-
-#: ../qml/Pages/VaultList.qml:188
-msgid "Fusemount unmount error: "
-msgstr ""
-
-#: ../qml/Pages/VaultList.qml:232
+#: ../qml/Pages/VaultList.qml:169
 msgid "Welcome to Vaults!"
 msgstr ""
 
-#: ../qml/Pages/VaultList.qml:239
+#: ../qml/Pages/VaultList.qml:176
 msgid "Add or Import a Vault"
 msgstr ""
 
-#: ../qml/Pages/VaultList.qml:254
+#: ../qml/Pages/VaultList.qml:191
 msgid "Move into the vault"
 msgstr ""
 
-#: ../qml/Pages/VaultList.qml:255
+#: ../qml/Pages/VaultList.qml:192
 msgid ""
 "Type a path to a file/folder to be moved into the vault.\n"
 "\n"
 "You can also cut it in the File Manager, paste here, and clear the clipboard."
 msgstr ""
 
-#: ../qml/Pages/VaultList.qml:280
+#: ../qml/Pages/VaultList.qml:217
 msgid "Move"
 msgstr ""
 
-#: ../qml/Pages/VaultList.qml:299
+#: ../qml/Pages/VaultList.qml:236
 msgid "Unlock the Vault"
 msgstr ""
 
-#: ../qml/Pages/VaultList.qml:300
+#: ../qml/Pages/VaultList.qml:237
 msgid "Enter the password to unlock the Vault."
 msgstr ""
 
-#: ../qml/Pages/VaultList.qml:325
+#: ../qml/Pages/VaultList.qml:262
 msgid "Submit"
 msgstr ""
 
-#: ../qml/Pages/VaultList.qml:343
+#: ../qml/Pages/VaultList.qml:280
 msgid "New Vault"
 msgstr ""
 
-#: ../qml/Pages/VaultList.qml:354
+#: ../qml/Pages/VaultList.qml:291
 msgid "Name"
 msgstr ""
 
-#: ../qml/Pages/VaultList.qml:374
+#: ../qml/Pages/VaultList.qml:311
 msgid "Confirm Password"
 msgstr ""
 
-#: ../qml/Pages/VaultList.qml:384
+#: ../qml/Pages/VaultList.qml:321
 msgid "Folder location"
 msgstr ""
 
-#: ../qml/Pages/VaultList.qml:401
+#: ../qml/Pages/VaultList.qml:338
 msgid "Create"
 msgstr ""

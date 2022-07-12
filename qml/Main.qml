@@ -19,7 +19,6 @@ import Ubuntu.Components 1.3
 //import QtQuick.Controls 2.2
 //import QtQuick.Layouts 1.3
 import Qt.labs.settings 1.0
-import io.thp.pyotherside 1.4
 import "./Components"
 
 MainView {
@@ -38,8 +37,9 @@ MainView {
 
     Toast { id: toast }
 
-    Connections {
-        target: gocryptfs
+    Backend {
+        id: gocryptfs
+
         onReady: {
             if (!gocryptfs.isFuseInstalled) {
                 pStack.push(Qt.resolvedUrl("./Pages/InstallFuse.qml"));
@@ -47,35 +47,14 @@ MainView {
                 pStack.push(Qt.resolvedUrl("./Pages/VaultList.qml"));
             }
         }
-    }
 
-    Python {
-        id: gocryptfs
-
-        property bool isInstalled
-        property bool isFuseInstalled
-
-        property bool isLoading: false
-
-        signal ready()
-
-        Component.onCompleted: {
-            addImportPath(Qt.resolvedUrl('../src/'));
-
-            importModule('gocryptfs', function() {
-                print('Module imported.');
-
-                call('gocryptfs.is_available', [], function(areDependenciesInstalled) {
-                    isInstalled = areDependenciesInstalled.gocryptfs;
-                    isFuseInstalled = areDependenciesInstalled.fuse;
-                    ready();
-                });
-            });
+        onError: function(errorMessage) {
+            toast.show(errorMessage);
+            print(errorMessage);
         }
 
-        onError: {
-            print('Python error: ' + traceback);
-            toast.show(i18n.tr("Unknown error. View logs for more info."));
+        onInfo: function(infoMessage) {
+            toast.show(infoMessage);
         }
     }
 }

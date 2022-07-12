@@ -38,8 +38,6 @@ Page {
                 onTriggered: {
                     var popup = PopupUtils.open(newVaultPopup);
                     popup.accepted.connect(function(name, mountDir, dataDir, password) {
-                        gocryptfs.isLoading = true;
-
                         let vault_config = {
                             "name": name,
                             "mount_directory": mountDir,
@@ -47,10 +45,7 @@ Page {
                             "is_mounted": false,
                         }
 
-                        gocryptfs.call('gocryptfs.init', [vault_config, password], function() {
-                            gocryptfs.isLoading = false;
-                            vaultList.refresh();
-                        });
+                        gocryptfs.init(vault_config, password);
                     });
                 }
             }
@@ -60,7 +55,7 @@ Page {
             Action {
                 text: i18n.tr("Refresh")
                 iconName: "view-refresh"
-                onTriggered: vaultList.refresh()
+                onTriggered: gocryptfs.model.refresh()
             },
 
             Action {
@@ -77,26 +72,6 @@ Page {
         ]
     }
 
-    ListModel {
-        id: vaultList
-
-        function refresh() {
-            gocryptfs.isLoading = true;
-
-            gocryptfs.call('gocryptfs.get_data', [], function(vaults) {
-                vaultList.clear();
-
-                vaults.forEach((vault) => {
-                    vaultList.append(vault);
-                });
-    
-                gocryptfs.isLoading = false;
-            });
-        }
-
-        Component.onCompleted: refresh()
-    }
-
     ScrollView {
         id: scrollView
         anchors.fill: parent
@@ -105,7 +80,9 @@ Page {
             id: vaultListView
             anchors.fill: parent
 
-            model: vaultList
+            model: gocryptfs.model
+            Component.onCompleted: gocryptfs.model.refresh()
+
             delegate: ListItem {
                 id: vaultItemDelegate
 
@@ -123,15 +100,8 @@ Page {
                             onTapped: {
                                 var popup = PopupUtils.open(moveToVaultPopup);
 
-                                popup.accepted.connect(function(location) {            
-                                    gocryptfs.isLoading = true;
-            
-                                    gocryptfs.call('gocryptfs.mv', [location, mount_directory], function(status) {
-                                        gocryptfs.isLoading = false;
-
-                                        if (status != 0)
-                                            toast.show(i18n.tr("Error moving the files into the vault"))
-                                    });
+                                popup.accepted.connect(function(location) {     
+                                    gocryptfs.mv(location, mount_directory);
                                 });
                             }
                         }
@@ -149,45 +119,12 @@ Page {
 
                                     var popup = PopupUtils.open(unlockVaultPopup);
                                     popup.accepted.connect(function(password) {
-                                        gocryptfs.isLoading = true;
-
-                                        gocryptfs.call('gocryptfs.mount', [id, password], function(status) {
-                                            vaultList.refresh();
-
-                                            // TODO: Convert status codes to errors
-
-                                            switch (status) {
-                                                case 0: {
-                                                    print("Mounted!");
-                                                    break;
-                                                }
-                                                case 12: {
-                                                    toast.show(i18n.tr("Wrong password!"));
-                                                    break;
-                                                }
-                                                default: {
-                                                    print("GoCryptFS mount error: " + status);
-                                                    toast.show(i18n.tr("GoCryptFS mount error: ") + status);
-                                                    // FIXME: Undefined errors
-                                                }
-                                            }
-
-                                            gocryptfs.isLoading = true;
-                                        });
+                                        gocryptfs.mount(id, password);
                                     });
                                 } else {
                                     print(`Unmounting ${encrypted_data_directory} at ${mount_directory}...`);
 
-                                    gocryptfs.isLoading = true;
-                                    gocryptfs.call('gocryptfs.unmount', [id], function(status) {
-                                        gocryptfs.isLoading = false;
-                                        vaultList.refresh();
-
-                                        if (status != 0) {
-                                            print("Fusemount unmount error: " + status);
-                                            toast.show(i18n.tr("Fusemount unmount error: ") + status);
-                                        }
-                                    });
+                                    gocryptfs.unmount(id);
                                 }
                             }
                         }
@@ -405,10 +342,12 @@ Page {
                         && Entropy.passwordEntropy(passwordField.text) > 36
                         && nameField.text != ""
                         && mountDirField.text != ""
+
                     onClicked: {
-                        let dataDir = `~/.config/${root.applicationName}/data/${nameField.text}`
-                        newVaultDialog.accepted(nameField.text, mountDirField.text, dataDir, passwordField.text)
-                        PopupUtils.close(newVaultDialog)
+                        let dataDir = `~/.config/${root.applicationName}/data/${nameField.text}`;
+
+                        newVaultDialog.accepted(nameField.text, mountDirField.text, dataDir, passwordField.text);
+                        PopupUtils.close(newVaultDialog);
                     }
                 }
             }
