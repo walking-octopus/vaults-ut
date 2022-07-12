@@ -71,8 +71,6 @@ UbuntuShape {
 
         anchors {
             right: parent.right
-            top: parent.top
-            bottom: parent.bottom
             verticalCenter: parent.verticalCenter
             rightMargin: units.gu(2)
         }
