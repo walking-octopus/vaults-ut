@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: vaults-ut.walking-octopus\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-07-12 14:27+0000\n"
+"POT-Creation-Date: 2022-07-16 18:13+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -86,45 +86,34 @@ msgstr ""
 msgid "Installing..."
 msgstr ""
 
-#: ../qml/Pages/InstallFuse.qml:56
-msgid ""
-"This app requires installing additional system components (Fuse).\n"
-"This may fail on some devices, due to the RootFS size.\n"
-"The download will take around 25 kB.\n"
-"Keep in mind that this message will reappear after a system update.\n"
-"\n"
-"Before further usage, please disable suspention for this app in UT Tweaks, "
-"since the overlay FS needs to stay running in the background."
-msgstr ""
-
-#: ../qml/Pages/InstallFuse.qml:71
+#: ../qml/Pages/InstallFuse.qml:92
 msgid "Continue"
 msgstr ""
 
-#: ../qml/Pages/InstallFuse.qml:89
+#: ../qml/Pages/InstallFuse.qml:110
 msgid "Error installing Fuse: "
 msgstr ""
 
-#: ../qml/Pages/InstallFuse.qml:108
+#: ../qml/Pages/InstallFuse.qml:130
 msgid "Enter password"
 msgstr ""
 
-#: ../qml/Pages/InstallFuse.qml:109
+#: ../qml/Pages/InstallFuse.qml:131
 msgid "Your password is required for this action."
 msgstr ""
 
-#: ../qml/Pages/InstallFuse.qml:116 ../qml/Pages/VaultList.qml:244
+#: ../qml/Pages/InstallFuse.qml:138 ../qml/Pages/VaultList.qml:244
 #: ../qml/Pages/VaultList.qml:301
 msgid "Password"
 msgstr ""
 
-#: ../qml/Pages/InstallFuse.qml:122
-msgid "OK"
-msgstr ""
-
-#: ../qml/Pages/InstallFuse.qml:132 ../qml/Pages/VaultList.qml:208
+#: ../qml/Pages/InstallFuse.qml:145 ../qml/Pages/VaultList.qml:208
 #: ../qml/Pages/VaultList.qml:253 ../qml/Pages/VaultList.qml:329
 msgid "Cancel"
+msgstr ""
+
+#: ../qml/Pages/InstallFuse.qml:156
+msgid "Install"
 msgstr ""
 
 #: ../qml/Pages/VaultList.qml:29

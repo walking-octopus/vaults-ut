@@ -25,79 +25,99 @@ Page {
     header: PageHeader {
         id: header
         title: gocryptfs.isLoading ? i18n.tr('Installing...') : i18n.tr('Attention!')
+        flickable: contentFlickable
     }
 
-    // FIXME: This layout relies on some hacky calculations that don't work on certain window sizes
-    ColumnLayout {
-        anchors.fill: parent
-        anchors.topMargin: header.height
+    ScrollView {
+        width: parent.width
+        height: parent.height
+        contentItem: contentFlickable
+    }
 
-        id: warningColumn
-        spacing: units.gu(4)
+    Flickable {
+        id: contentFlickable
+        width: parent.width; height: width
+        contentHeight: warningColumn.height
+        topMargin: units.gu(2)
+        bottomMargin: units.gu(3)
 
-        Item { Layout.fillHeight: true }
+        // FIXME: This layout relies on some hacky calculations that don't work on certain window sizes
+        ColumnLayout {
+            width: parent.width
+            anchors.top: parent.top
+            anchors.topMargin: units.gu(1)
+            spacing: units.gu(2)
+            
+            id: warningColumn
 
-        Icon {
-            id: warnIcon
-            Layout.preferredWidth: (parent.width / 6) + units.gu(4)
-            Layout.preferredHeight: Layout.preferredWidth
-    
-            Layout.maximumWidth: units.gu(15)
+            Item { Layout.fillHeight: true }
 
-            Layout.alignment: Qt.AlignCenter
+            Icon {
+                id: warnIcon
+                Layout.preferredWidth: (parent.width / 6) + units.gu(4)
+                Layout.preferredHeight: Layout.preferredWidth
+        
+                Layout.maximumWidth: units.gu(15)
 
-            name: "security-alert"
-        }
+                Layout.alignment: Qt.AlignCenter
 
-        Label {
-            id: warnText
-            Layout.fillWidth: true
-
-            text: i18n.tr("This app requires installing additional system components (Fuse).\nThis may fail on some devices, due to the RootFS size.\nThe download will take around 25 kB.\nKeep in mind that this message will reappear after a system update.\n\nBefore further usage, please disable suspention for this app in UT Tweaks, since the overlay FS needs to stay running in the background.")
-
-            horizontalAlignment: Text.AlignHCenter
-            wrapMode: Text.WordWrap
-            lineHeight: 1.8
-
-            Layout.leftMargin: units.gu(4)
-            Layout.rightMargin: units.gu(4)
-        }
-
-        Button {
-            id: acceptButton
-            Layout.alignment: Qt.AlignCenter
-            Layout.preferredWidth: (parent.width / 5) + units.gu(2)
-
-            text: i18n.tr("Continue")
-            color: theme.palette.normal.positive
-
-            onClicked: {
-                var popup = PopupUtils.open(passwordPopup)
-                popup.accepted.connect(function(password) {
-
-                    gocryptfs.isLoading = true;
-
-                    gocryptfs.call('gocryptfs.disable_sleep', [root.applicationName], function() {
-                        print("Disabled app suspention.");
-                    });
-
-                    gocryptfs.call('gocryptfs.install_fuse', [password], function(status) {
-                        gocryptfs.isLoading = false;
-
-                        if (status != 0) {
-                            print(`Error installing Fuse: ${status}`);
-                            toast.show(i18n.tr("Error installing Fuse: ") + status);
-                            return;
-                        }
-
-                        print("Fuse installed.");
-                        pStack.pop(); pStack.push(Qt.resolvedUrl("./VaultList.qml"));
-                    });
-                })
+                name: "security-alert"
             }
-        }
 
-        Item { Layout.fillHeight: true }
+            Text {
+                id: warnText
+                Layout.fillWidth: true
+                color: theme.palette.normal.baseText
+
+                text: i18n.tr(`This app requires the installation of additional system components: Fuse.\n
+This may fail on some devices, due to the Root FS size.\n
+If this breaks your system, try reinstalling UT without the Wipe option using the UBports Installer.\n
+Keep in mind that this message will reappear after a system update.\n
+GoCryptFs needs to run in the background, so it will add itself to app suspension exceptions.`)
+
+                horizontalAlignment: Text.AlignHCenter
+                // lineHeight: 1.65
+
+                Layout.leftMargin: parent.width / 6
+                Layout.rightMargin: parent.width / 6
+            }
+
+            Button {
+                id: acceptButton
+                Layout.alignment: Qt.AlignCenter
+                Layout.preferredWidth: (parent.width / 5) + units.gu(4)
+
+                text: i18n.tr("Continue")
+                color: theme.palette.normal.positive
+
+                onClicked: {
+                    var popup = PopupUtils.open(passwordPopup)
+                    popup.accepted.connect(function(password) {
+
+                        gocryptfs.isLoading = true;
+
+                        gocryptfs.call('gocryptfs.disable_sleep', [root.applicationName], function() {
+                            print("Disabled app suspention.");
+                        });
+
+                        gocryptfs.call('gocryptfs.install_fuse', [password], function(status) {
+                            gocryptfs.isLoading = false;
+
+                            if (status != 0) {
+                                print(`Error installing Fuse: ${status}`);
+                                toast.show(i18n.tr("Error installing Fuse: ") + status);
+                                return;
+                            }
+
+                            print("Fuse installed.");
+                            pStack.pop(); pStack.push(Qt.resolvedUrl("./VaultList.qml"));
+                        });
+                    })
+                }
+            }
+
+            Item { Layout.fillHeight: true }
+        }
     }
 
     Component {
@@ -118,24 +138,29 @@ Page {
                 focus: true
             }
 
-            Button {
-                text: i18n.tr("OK")
-                color: theme.palette.normal.positive
-
-                onClicked: {
-                    passwordDialog.accepted(passwordTextField.text)
-                    PopupUtils.close(passwordDialog)
+            RowLayout {
+                Button {
+                    text: i18n.tr("Cancel")
+                    color: theme.palette.normal.negative
+                    Layout.fillWidth: true
+        
+                    onClicked: {
+                        passwordDialog.rejected();
+                        PopupUtils.close(passwordDialog)
+                    }
                 }
-            }
 
-            Button {
-                text: i18n.tr("Cancel")
-                color: theme.palette.normal.negative
+                Button {
+                    text: i18n.tr("Install")
+                    color: theme.palette.normal.positive
+                    Layout.fillWidth: true
 
-                onClicked: {
-                    passwordDialog.rejected();
-                    PopupUtils.close(passwordDialog)
+                    onClicked: {
+                        passwordDialog.accepted(passwordTextField.text)
+                        PopupUtils.close(passwordDialog)
+                    }
                 }
+
             }
         }
     }
