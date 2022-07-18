@@ -74,7 +74,6 @@ def disable_sleep(appID: str) -> int:
         sleep_exempt_apps.append(appID)
 
     returncode = subprocess.call(["gsettings", "set", "com.canonical.qtmir", "lifecycle-exempt-appids", str(sleep_exempt_apps)])
-
     return returncode
 
 def mv(source: str, dest: str) -> int:
@@ -112,7 +111,6 @@ def import_vault(vault: dict) -> int:
     return 0
 
 def init(vault: dict, password: str) -> int:
-    # That might be a crude way to expand paths
     vault["encrypted_data_directory"] = vault["encrypted_data_directory"].replace("~", os.getenv("HOME"))
     vault["mount_directory"] = vault["mount_directory"].replace("~", os.getenv("HOME"))
     vault["is_mounted"] = False
@@ -138,6 +136,57 @@ def init(vault: dict, password: str) -> int:
     save_config()
 
     return child.returncode
+
+
+# TODO: Add option to turn a dir into a vault
+
+# TODO: Add way to view a recovery key
+
+# TODO: Implement password change in the UI
+def change_password(vault_id: str, new_password: str, old_password: str) -> int:
+    cipher_dir = vault_dict[vault_id]["encrypted_data_directory"]
+    child = subprocess.Popen(["gocryptfs", "--passwd", cipher_dir],
+        stdin=subprocess.PIPE,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        universal_newlines=True)
+
+    child.communicate(old_password + "\n" + new_password)
+
+    child.wait()
+
+    return child.returncode
+
+# TODO: Add a speed benchmark
+
+# TODO: Implement vault editing in the UI
+def edit_vault(vault_id: str, edited_vault: dict) -> bool:
+    status_mountdir, status_datadir = 1, 1
+
+    if edited_vault["mount_directory"] != vault_dict[vault_id]["mount_directory"]:
+        status_mountdir = mv(vault_dict[vault_id]["mount_directory"], edited_vault["mount_directory"])
+
+    if edited_vault["encrypted_data_directory"] != vault_dict[vault_id]["encrypted_data_directory"]:
+        status_datadir = mv(vault_dict[vault_id]["encrypted_data_directory"], edited_vault["encrypted_data_directory"])
+
+    vault_dict[vault_id] = edited_vault
+
+    return status_mountdir == 0 and status_datadir == 0
+
+# TODO: Implement fsck in the UI
+def fsck(uuid: str, password: str) -> int:
+    child = subprocess.Popen(["gocryptfs", "-fsck", vault_dict[uuid]["encrypted_data_directory"]],
+        stdin=subprocess.PIPE,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        universal_newlines=True)
+
+    child.communicate(password)
+
+    child.wait()
+
+    return child.returncode
+
 
 def mount(uuid: str, password: str) -> int:
     vault = vault_dict[uuid]
