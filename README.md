@@ -8,17 +8,17 @@ _____________________________________________
 
 ## Installing
 
-Since the app depends on and automaticly installs Fuse, it might not get an OpenStore listing until it's shipped by default. Until then, get a build from the Release page or GitHub Actions, and install the `.click` file.
+Since the app depends on and automatically installs Fuse, it might not get an OpenStore listing until it's shipped by default. Until then, get a build from the Release page or GitHub Actions, and install the `.click` file.
 
 ## Building
 
 ### Dependencies
 - Docker
-- Android tools (for adb)
+- Android tools (for ADB)
 - Python3 / pip3
 - Clickable (get it from [here](https://clickable-ut.dev/en/latest/index.html))
 
-Use Clickable to build and package Translate as a Click package ready to be installed on Ubuntu Touch
+Use Clickable to build and package Vaults as a Click package ready to be installed on Ubuntu Touch
 
 ### Build instructions
 
