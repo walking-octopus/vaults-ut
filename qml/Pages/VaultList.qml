@@ -17,7 +17,6 @@
 import QtQuick 2.12
 import Ubuntu.Components 1.3
 import Ubuntu.Components.Popups 1.3
-//import QtQuick.Controls 2.2
 import QtQuick.Layouts 1.3
 import "../Components/passwordEntropy.js" as Entropy
 
@@ -130,7 +129,7 @@ Page {
                         }
                     }
 
-                    // FIXME: This uses an extra trailing slot
+                    // FIXME: This uses an extra trailing slot, but I don't think it causes any issues.
                     Icon {
                         name: "settings"
                         width: units.gu(2.5); height: width
@@ -233,7 +232,7 @@ Page {
          Dialog {
             id: unlockVaultDialog
 
-            title: i18n.tr("Unlock the Vault") // TODO: Maybe add the vault title here...
+            title: i18n.tr("Unlock the Vault") // TODO: Maybe I can add a vault title here?
             text: i18n.tr("Enter the password to unlock the Vault.")
 
             signal accepted(string password)

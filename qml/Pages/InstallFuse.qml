@@ -41,7 +41,7 @@ Page {
         topMargin: units.gu(2)
         bottomMargin: units.gu(3)
 
-        // FIXME: This layout relies on some hacky calculations that don't work on certain window sizes
+        // I think some layout calculations could be done better.
         ColumnLayout {
             width: parent.width
             anchors.top: parent.top
@@ -76,7 +76,6 @@ Keep in mind that this message will reappear after a system update.\n
 GoCryptFs needs to run in the background, so it will add itself to app suspension exceptions.`)
 
                 horizontalAlignment: Text.AlignHCenter
-                // lineHeight: 1.65
 
                 Layout.leftMargin: parent.width / 6
                 Layout.rightMargin: parent.width / 6
