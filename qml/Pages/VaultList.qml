@@ -57,11 +57,11 @@ Page {
                 onTriggered: gocryptfs.model.refresh()
             },
 
-            // Action {
-            //     text: i18n.tr("Preferences")
-            //     iconName: "settings"
-            //     onTriggered: print("PLACEHOLDER: App settings")
-            // },
+            Action {
+                text: i18n.tr("Preferences")
+                iconName: "settings"
+                onTriggered: toast.show("WIP")
+            },
 
             Action {
                 text: i18n.tr("About")
@@ -130,16 +130,16 @@ Page {
                     }
 
                     // FIXME: This uses an extra trailing slot, but I don't think it causes any issues.
-                    // Icon {
-                    //     name: "settings"
-                    //     width: units.gu(2.5); height: width
-                    //     visible: !is_mounted
-                    //     SlotsLayout.position: SlotsLayout.Trailing
+                    Icon {
+                        name: "settings"
+                        width: units.gu(2.5); height: width
+                        visible: !is_mounted
+                        SlotsLayout.position: SlotsLayout.Trailing
 
-                    //     TapHandler {
-                    //         onTapped: print("Vault settings")
-                    //     }
-                    // }
+                        TapHandler {
+                            onTapped: toast.show("WIP")
+                        }
+                    }
                 }
             }
             focus: true
