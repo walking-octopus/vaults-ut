@@ -260,7 +260,7 @@ Page {
 
                     text: i18n.tr("Submit")
                     color: theme.palette.normal.positive
-                    
+
                     enabled: passwordField.text != ""
                     onClicked: {
                         PopupUtils.close(unlockVaultDialog);
@@ -319,6 +319,7 @@ Page {
                 id: mountDirField
                 placeholderText: i18n.tr("Folder location")
                 text: `~/Documents/Vaults/${nameField.text}`
+                inputMethodHints: Qt.ImhNoPredictiveText
             }
 
             RowLayout {
