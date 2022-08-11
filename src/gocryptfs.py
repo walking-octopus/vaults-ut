@@ -24,7 +24,7 @@ def get_config() -> dict:
 vault_dict = get_config()
 
 def save_config():
-    jsonVaults = json.dumps(vault_dict)
+    jsonVaults = json.dumps(vault_dict, ensure_ascii=False, indent=4)
     # TODO: Filter out the non-existent vaults
 
     configFile = open(str(configFilePath), "w", encoding='utf-8')
