@@ -72,7 +72,7 @@ msgstr "Übersetzung"
 
 #: ../qml/Pages/About.qml:113
 msgid "Help us translate the app!"
-msgstr "Hilf uns dabei, die App zu übersetzen!"
+msgstr "Helfen Sie uns dabei, die App zu übersetzen!"
 
 #: ../qml/Pages/About.qml:118
 msgid "Source code"
@@ -150,10 +150,10 @@ msgid ""
 "\n"
 "You can also cut it in the File Manager, paste here, and clear the clipboard."
 msgstr ""
-"Geben Sie den Pfad der Datei oder des Ordner ein, /n"
-"die Sie in den Tresor verschieben möchten.\n"
+"Geben Sie den Pfad der Datei oder des Ordners ein, \n"
+"die/den Sie in den Tresor verschieben möchten.\n"
 "\n"
-"Sie können es auch auch in der Dateiverwaltung ausschneiden, /n"
+"Sie können auch auch in der Dateiverwaltung ausschneiden, \n"
 "hier einfügen und die Zwischenablage löschen."
 
 #: ../qml/Pages/VaultList.qml:217
