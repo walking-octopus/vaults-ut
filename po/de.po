@@ -10,7 +10,7 @@ msgstr ""
 "PO-Revision-Date: 2022-09-25 05:39+0200\n"
 "Last-Translator: Benjamin Schwatlo <>\n"
 "Language-Team: German\n"
-"Language: nl\n"
+"Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -28,7 +28,7 @@ msgstr "GoCryptFS-Fehlermeldung: %s"
 
 #: ../qml/Components/Backend.qml:87
 msgid "Vault opened."
-msgstr "Sicherung geöffnet."
+msgstr "Tresor geöffnet."
 
 #: ../qml/Components/Backend.qml:91
 msgid "Wrong password!"
@@ -47,7 +47,7 @@ msgstr "FuseMount-Unmount-Fehler: %s"
 #: ../qml/Components/Backend.qml:127
 #, javascript-format
 msgid "Error %s moving the files into the vault"
-msgstr "Fehler beim Verschieben der Dateien in die Sicherung: %s"
+msgstr "Fehler beim Verschieben der Dateien in den Tresor: %s"
 
 #: ../qml/Pages/About.qml:25 ../qml/Pages/VaultList.qml:68
 msgid "About"
