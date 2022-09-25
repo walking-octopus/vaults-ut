@@ -1,15 +1,15 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the vaults-ut.walking-octopus package.
 #
-# Heimen Stoffels <vistausss@fastmail.com>, 2022.
+# Benjamin Schwatlo <>, 2022.
 msgid ""
 msgstr ""
 "Project-Id-Version: vaults-ut.walking-octopus\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-07-16 18:13+0000\n"
-"PO-Revision-Date: 2022-07-18 14:25+0200\n"
-"Last-Translator: Heimen Stoffels <vistausss@fastmail.com>\n"
-"Language-Team: Dutch\n"
+"PO-Revision-Date: 2022-09-25 05:39+0200\n"
+"Last-Translator: Benjamin Schwatlo <>\n"
+"Language-Team: German\n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -19,130 +19,130 @@ msgstr ""
 
 #: ../qml/Components/Backend.qml:34
 msgid "Unknown error. View the logs for more info."
-msgstr "Onbekende foutmelding. Bekijk voor meer informatie het logboek."
+msgstr "Unbekannter Fehler. Betrachten Sie die Logdateien für weitere Infos."
 
 #: ../qml/Components/Backend.qml:72
 #, javascript-format
 msgid "GoCryptFS error: %s"
-msgstr "GoCryptFS-foutmelding: %s"
+msgstr "GoCryptFS-Fehlermeldung: %s"
 
 #: ../qml/Components/Backend.qml:87
 msgid "Vault opened."
-msgstr "De kluis is geopend."
+msgstr "Sicherung geöffnet."
 
 #: ../qml/Components/Backend.qml:91
 msgid "Wrong password!"
-msgstr "Het wachtwoord is onjuist!"
+msgstr "Falsches Passwort!"
 
 #: ../qml/Components/Backend.qml:96
 #, javascript-format
 msgid "GoCryptFS mount error: %s"
-msgstr "GoCryptFS-aankoppelfout: %s"
+msgstr "GoCryptFS-Mount-Fehler: %s"
 
 #: ../qml/Components/Backend.qml:114
 #, javascript-format
 msgid "FuseMount unmount error: %s"
-msgstr "FuseMount-afkoppelfout: %s"
+msgstr "FuseMount-Unmount-Fehler: %s"
 
 #: ../qml/Components/Backend.qml:127
 #, javascript-format
 msgid "Error %s moving the files into the vault"
-msgstr "Foutmelding tijdens het verplaatsen van de bestanden: %s"
+msgstr "Fehler beim Verschieben der Dateien in die Sicherung: %s"
 
 #: ../qml/Pages/About.qml:25 ../qml/Pages/VaultList.qml:68
 msgid "About"
-msgstr "Over"
+msgstr "Über"
 
 #: ../qml/Pages/About.qml:64 ../qml/Pages/VaultList.qml:29
 #: vaults-ut.desktop.in.h:1
 msgid "Vaults"
-msgstr "Kluizen"
+msgstr "Tresore"
 
 #: ../qml/Pages/About.qml:100
 msgid "License"
-msgstr "Licentie"
+msgstr "Lizenz"
 
 #: ../qml/Pages/About.qml:107
 msgid "Report an issue"
-msgstr "Probleem melden"
+msgstr "Problem melden"
 
 #: ../qml/Pages/About.qml:112
 msgid "Translation"
-msgstr "Vertalen"
+msgstr "Übersetzung"
 
 #: ../qml/Pages/About.qml:113
 msgid "Help us translate the app!"
-msgstr "Help om de app te vertalen!"
+msgstr "Hilf uns dabei, die App zu übersetzen!"
 
 #: ../qml/Pages/About.qml:118
 msgid "Source code"
-msgstr "Broncode"
+msgstr "Quellcode"
 
 #: ../qml/Pages/InstallFuse.qml:27
 msgid "Attention!"
-msgstr "Let op!"
+msgstr "Achtung!"
 
 #: ../qml/Pages/InstallFuse.qml:27
 msgid "Installing..."
-msgstr "Bezig met installeren…"
+msgstr "Installiere..."
 
 #: ../qml/Pages/InstallFuse.qml:92
 msgid "Continue"
-msgstr "Doorgaan"
+msgstr "Weiter"
 
 #: ../qml/Pages/InstallFuse.qml:110
 msgid "Error installing Fuse: "
-msgstr "Fuse kan niet worden geïnstalleerd: "
+msgstr "Fehler beim Installieren von Fuse: "
 
 #: ../qml/Pages/InstallFuse.qml:130
 msgid "Enter password"
-msgstr "Voer het wachtwoord in"
+msgstr "Passwort eingeben"
 
 #: ../qml/Pages/InstallFuse.qml:131
 msgid "Your password is required for this action."
-msgstr "Voer je wachtwoord in om de actie uit te voeren."
+msgstr "Passwort erforderlich, um fortzufahren."
 
 #: ../qml/Pages/InstallFuse.qml:138 ../qml/Pages/VaultList.qml:244
 #: ../qml/Pages/VaultList.qml:301
 msgid "Password"
-msgstr "Wachtwoord"
+msgstr "Passwort"
 
 #: ../qml/Pages/InstallFuse.qml:145 ../qml/Pages/VaultList.qml:208
 #: ../qml/Pages/VaultList.qml:253 ../qml/Pages/VaultList.qml:329
 msgid "Cancel"
-msgstr "Annuleren"
+msgstr "Abbrechen"
 
 #: ../qml/Pages/InstallFuse.qml:156
 msgid "Install"
-msgstr "Installeren"
+msgstr "Installieren"
 
 #: ../qml/Pages/VaultList.qml:29
 msgid "Loading..."
-msgstr "Bezig met laden…"
+msgstr "Laden..."
 
 #: ../qml/Pages/VaultList.qml:35
 msgid "Add"
-msgstr "Toevoegen"
+msgstr "Hinzufügen"
 
 #: ../qml/Pages/VaultList.qml:56
 msgid "Refresh"
-msgstr "Herladen"
+msgstr "Aktualisieren"
 
 #: ../qml/Pages/VaultList.qml:62
 msgid "Preferences"
-msgstr "Instellingen"
+msgstr "Einstellungen"
 
 #: ../qml/Pages/VaultList.qml:169
 msgid "Welcome to Vaults!"
-msgstr "Welkom in Kluizen!"
+msgstr "Wilkommen zu Vaults!"
 
 #: ../qml/Pages/VaultList.qml:176
 msgid "Add or Import a Vault"
-msgstr "Kluis importeren of toevoegen"
+msgstr "Einen Tresor hinzufügen oder importieren"
 
 #: ../qml/Pages/VaultList.qml:191
 msgid "Move into the vault"
-msgstr "Verplaatsen naar kluis"
+msgstr "In den Tresor verschieben"
 
 #: ../qml/Pages/VaultList.qml:192
 msgid ""
@@ -150,44 +150,44 @@ msgid ""
 "\n"
 "You can also cut it in the File Manager, paste here, and clear the clipboard."
 msgstr ""
-"Voer de locatie in van een bestand/map die in de kluis moet worden"
-" geplaatst.\n"
+"Geben Sie den Pfad der Datei oder des Ordner ein, /n"
+"die Sie in den Tresor verschieben möchten.\n"
 "\n"
-"Ook kun je een locatie knippen vanuit de bestandsbeheerder, hier plakken en"
-" vervolgens het klembord wissen."
+"Sie können es auch auch in der Dateiverwaltung ausschneiden, /n"
+"hier einfügen und die Zwischenablage löschen."
 
 #: ../qml/Pages/VaultList.qml:217
 msgid "Move"
-msgstr "Verplaatsen"
+msgstr "Verschieben"
 
 #: ../qml/Pages/VaultList.qml:236
 msgid "Unlock the Vault"
-msgstr "Kluis ontgrendelen"
+msgstr "Den Tresor öffnen"
 
 #: ../qml/Pages/VaultList.qml:237
 msgid "Enter the password to unlock the Vault."
-msgstr "Voer het wachtwoord in om de kluis te ontgrendelen."
+msgstr "Geben Sie das Passwort ein, um den Tresor zu öffnen."
 
 #: ../qml/Pages/VaultList.qml:262
 msgid "Submit"
-msgstr "Openen"
+msgstr "Öffnen"
 
 #: ../qml/Pages/VaultList.qml:280
 msgid "New Vault"
-msgstr "Nieuwe kluis"
+msgstr "Neuer Tresor"
 
 #: ../qml/Pages/VaultList.qml:291
 msgid "Name"
-msgstr "Naam"
+msgstr "Name"
 
 #: ../qml/Pages/VaultList.qml:311
 msgid "Confirm Password"
-msgstr "Wachtwoord bevestigen"
+msgstr "Passwort bestätigen"
 
 #: ../qml/Pages/VaultList.qml:321
 msgid "Folder location"
-msgstr "Maplocatie"
+msgstr "Ort des Ordners"
 
 #: ../qml/Pages/VaultList.qml:338
 msgid "Create"
-msgstr "Aanmaken"
+msgstr "Erstellen"
